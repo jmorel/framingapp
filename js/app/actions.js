@@ -12,22 +12,55 @@ function addNewFrame(formatID) {
 }
 
 function cut() {
+
     /*alert('We should be cutting the image here!');*/
-    var frame = frames[1];
-    var pdf = new BytescoutPDF();
-    pdf.pageAdd();
-    pdf.pageTextSize(BytescoutPDF.A4);
-    /* Beware this BytescoutPDF.A4 only works for 72dpi
-    For custom resolution, it'd better to use:
-    pdf.pageSetWidth(8.25); // 8.25 inches = 21 cm
-    pdf.pageSetHeight(13.25); // 13.25 inches = 29.7 cm
-    */
 
-    /*pdf.pageSetOrientation(BytescoutPDF.PORTRAIT); //BytescoutPDF.LANDSCAPE*/
+    // we will generate one pdf per paper format (margins are irrelevant)
 
-    pdf.imageLoadFromCanvas(canvas); // warning, this ought to be a specific canvas, not our big one
-    pdf.imagePlace(20, 40); //
-    return pdf;
+
+    // checking paper sizes used
+    // result contained in sheetSizesUsed
+    var sheetSizesUsed = Array();
+    for(var=0; i<frameFormats.length; i++) {
+        var alreadyThere = false;
+        for(var j=0; j<sheetSizesUsed.length; j++) { 
+            if(frameFormats[i] == sheetSizesUsed[j]) { 
+                alreadyThere = true; 
+            } 
+        }
+        if(!alreadyThere) {
+            sheetSizesUsed.push(frameFormats[i].sheet);
+        }
+    }
+
+    // for each paper format
+    for(var i=0; i<sheetSizesUsed.length; i++) {
+        var sheetSize = sheetSizesUsed[i];
+
+        // new pdf
+        var pdf = new BytescoutPDF();
+
+        for(var j=0; j<frames.length; j++) {
+            if(frames[j].sheet == sheetSize) {
+                var frame = frames[j];
+                pdf.pageAdd();
+                pdf.pageTextSize(BytescoutPDF.A4);
+                /* Beware this BytescoutPDF.A4 only works for 72dpi
+                For custom resolution, it'd better to use:
+                pdf.pageSetWidth(8.25); // 8.25 inches = 21 cm
+                pdf.pageSetHeight(13.25); // 13.25 inches = 29.7 cm
+                */
+
+                /*pdf.pageSetOrientation(BytescoutPDF.PORTRAIT); //BytescoutPDF.LANDSCAPE*/
+
+                pdf.imageLoadFromCanvas(canvas); // warning, this ought to be a specific canvas, not our big one
+                pdf.imagePlace(20, 40); //
+            }
+        }
+
+        //return pdf;
+    }
+    
 }
 
 function canvasHover(e) {
