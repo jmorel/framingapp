@@ -1,0 +1,168 @@
+<html>
+
+<head>
+
+    <title>Framing App</title>
+    
+    <link rel="stylesheet" type="text/css" href="css/general.css">
+    <link rel="stylesheet" type="text/css" href="css/fonts.css"> 
+    <link rel="stylesheet" type="text/css" href="css/home.css">
+    <link rel="stylesheet" type="text/css" href="css/settings.css">
+    <link rel="stylesheet" type="text/css" href="css/settings col1.css">
+    <link rel="stylesheet" type="text/css" href="css/settings col2.css">
+    <link rel="stylesheet" type="text/css" href="css/menu.css">
+    
+    <!-- tool set -->
+    <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="js/jquery.hoverIntent.minified.js"></script>
+    <script type="text/javascript" src="js/jquery.mousewheel.js"></script>
+    <script type="text/javascript" src="js/utilities.js"></script>
+    <script type="text/javascript" src="js/bytescoutpdf1.04.80.js"></script>
+    
+    <!-- data structures -->
+    <script type="text/javascript" src="js/app/frame.js"></script>
+    <script type="text/javascript" src="js/app/frameformat.js"></script>
+    <script type="text/javascript" src="js/app/picture.js"></script>
+    <script type="text/javascript" src="js/app/print.js"></script>   
+    <script type="text/javascript" src="js/app/declarations.js"></script>
+    <script type="text/javascript" src="js/app/init.js"></script>
+    
+    <!-- app logic -->
+    <script type="text/javascript" src="js/app/environment.js"></script>
+    <script type="text/javascript" src="js/app/actions.js"></script> 
+
+    <!-- tests -->
+    <script type="text/javascript" src="js/tests.js"></script>
+        
+    <!-- eye candy -->
+    <script type="text/javascript" src="js/home.js"></script>
+    <script type="text/javascript" src="js/settings.js"></script> 
+    
+    <!-- launch app -->
+    <script type="text/javascript" src="js/launch.js"></script>
+        
+</head>
+
+<body>
+
+<section id="home">
+
+    <img src="pix/thescream.png" id="thescream"/>
+
+    <h1>Framing App</h1>
+    <h2>LARGE PRINTS FOR THE MASSES</h2>
+
+    <!-- <iframe id="video" src="http://www.youtube.com/embed/vMwu_lNB84Y" frameborder="0" allowfullscreen></iframe> -->
+    
+    <div id="start">
+        <div id="startarrow"></div>    
+        <div id="starttext">
+            <div style="font-size: 20pt; letter-spacing: auto; word-spacing: 2px;">frame a</div>
+            <div style="font-size: 20pt; margin-top: -7px; letter-spacing: 1px;">picture</div>
+            <div style="font-size: 20pt; margin-top: -7px; letter-spacing: 1px; word-spacing: 2px;">of your</div>
+            <div style="font-size: 35pt; margin-top: -12px; letter-spacing: 4px; text-align: center;">own</div>
+        </div>
+    </div>
+    
+</section>
+
+<section id="settings">
+    <div id="settings">
+        <h1>Settings</h1>
+        <div id="col1">
+            <h2>Picture</h2>
+            <div class="content">
+                
+                <input type="file" id="pictureinput">
+                <canvas id="thumbnail" width=120 height=120></canvas><br>
+                <div id="thumbnailcaption">drop a file here<br>- or -<br>click to select</div>
+                
+                <div id="filedetails">
+                </div>
+                
+                <div id="realsize">
+                    <b>Real life size</b> <i>(in mm)</i><br>
+                    <input type="number" placeholder="width" id="widthMM"> &times; <input type="number" placeholder="height" id="heightMM">
+                </div>
+                
+                <div id="screen">
+                    <b>Screen resolution</b> <i>(in px)</i>&nbsp;&nbsp;&nbsp;&nbsp; <input type="number" placeholder="width" id="screenwidth"> &times; <input type="number" placeholder="height" id="screenheight"><br>
+                    <b>Screen size</b> <i>(in inches)</i>&nbsp;&nbsp;&nbsp;&nbsp; <input type="number" placeholder="diagonal" id="screendiagonal">
+                </div>
+                
+            </div>
+        </div>
+        
+        <div id="col2">
+            <h2>Frames</h2>
+
+    		<p>Use the form below to set up your frame formats.</p>
+                <form method="get" style="float: left">
+                    <table>
+                        <tr>
+                            <td class="top">
+                            <td class="top"> <input type="number" placeholder="top" id="newFF_margintop" tabindex="1">
+                            <td class="top">
+                        <tr>
+                            <td class="left"> <input type="number" placeholder="left" id="newFF_marginleft" tabindex="2">
+                            <td class="middle"> <select id="newFF_sheetsize" tabindex="5"></select>
+                            <td class="right"> <input type="number" placeholder="right" id="newFF_marginright" tabindex="3">
+                        <tr>
+                            <td class="bottom"> 
+                            <td class="bottom"> <input type="number" placeholder="bottom" id="newFF_marginbottom" tabindex="4">
+                            <td class="bottom">
+        				<tr>
+        					<td colspan="3" class="caption"> <input type="text" placeholder="name" id="newFF_name" tabindex="6">
+                    </table>
+                    <input type="submit" style="opacity: 0; height: 20px;">
+                </form>
+                
+
+			<div id="addArrow">
+				<div id="pointyEnd"></div>
+				<div id="text">Add</div>
+			</div>
+		
+			<div id="allFrameFormats">
+                <p class="noFFyet">None defined yet</p>
+            </div>
+
+        </div>
+    </div>
+		
+	<div id="go">
+	   <div>
+        	<span style="font-size: 30pt;">all set?</span><br>
+        	GO!
+	   </div>
+	</div>
+	
+</section>
+
+
+<canvas id="can" width="100" height="100"></canvas>
+
+<section id="menu">
+    <ul>
+        <li><img src="pix/settings.png" alt="settings" id="settings_button"></li>
+        <li><img src="pix/add.png" alt="add" id="add_button"></li>
+        <li><img src="pix/trash.png" alt="delete" id="delete_button"></li>
+        <li><img src="pix/rotate.png" alt="rotate" id="rotate_button"></li>
+        <li><img src="pix/forward.png" alt="move up" id="moveup_button"></li>
+        <li><img src="pix/backward.png" alt="move down" id="movedown_button"></li>
+        <li><img src="pix/seethrough-on.png" alt="switch see through status" id="toggleseethrough_button"></li>
+        <li><img src="pix/scissors.png" alt="cut" id="cut_button"></li>
+    </ul>
+    
+    <ul id="newFrame">
+        <p style="font-size:smaller;">No frame format defined yet.</p>
+    </ul>
+    
+    <input type="range" id="zoom_lvl" value="20" min="0" max="30" step="1">
+
+</section>
+
+
+</body>
+
+</html>

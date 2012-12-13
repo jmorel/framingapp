@@ -1,0 +1,75 @@
+section#settings {
+    position: absolute;
+    top: 0px;
+    left: 0px;//-980px;
+    height: 100%;
+    width: 800px;
+    background: #325573;    
+    color: #FFFFFF;
+    z-index: 1000;
+}
+
+h1 {
+    font-family: 'Bebas';
+    font-size: 50pt;
+    color: #FFFFFF;
+    padding-left: 100px;
+    padding-top: 70px;
+}
+
+h2 {
+    font-family: 'MEgalopolisExtra';
+    font-size: 20pt;
+    background: #FFFFFF;
+    color: #325573;
+    padding-top: 5px;
+}
+
+select {
+	-webkit-appearance: none;
+	border: 0px;
+	border-radius: 0px;
+	padding: 2px 7px 2px 7px;
+	text-align: center;
+    background-color: #F2F2F2;
+	color: #325573;
+}
+
+input {
+	border: none;
+	background-color: #F2F2F2;
+	padding: 4px 5px 3px 5px;
+	color: #325573;
+	font-family: 'Nobile';
+	font-size: smaller;
+}
+
+input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+div#go {
+    position: absolute;
+    top: 0px;
+    left: 800px;
+    height: 100%;
+    width: 170px;
+    background: RGBa(242, 242, 242, 0.7);
+    font-family: 'Bebas';
+    font-size: 70pt;
+    text-align:right;
+
+    color: #325573;    
+}
+
+div#go div{
+    padding-right: 20px;
+    padding-top: 110px;
+}
+
+div#go:hover {
+    cursor: pointer;
+    background: RGBa(242, 242, 242, 0.9);
+    color: #991523;    
+}

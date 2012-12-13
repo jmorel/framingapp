@@ -1,0 +1,156 @@
+div#col2 {
+    position: absolute;
+    left: 450px;
+    width: 350px;
+    font-size: smaller;
+}
+
+div#col2 h2 {
+    margin-bottom: 25px;
+}
+
+table {
+    font-family: 'Nobile';
+    font-size: small;
+    border-spacing: 0px;
+    border-collapse: collapse;
+    width: 105px;
+    height: 177px;
+	margin-bottom: 15px;
+}
+
+table input {
+    padding: 0px;
+    margin: 0px;
+    width: auto;
+    background-color: #F2F2F2;
+    color: #325573;
+}
+
+table img {
+    width: 15px;
+    cursor: pointer;
+}
+
+td.top, td.bottom {
+    height: 17px;
+}
+td.left, td.right {
+    width: 17px;
+    overflow: hidden;
+}
+
+td.top input, td.bottom input {
+    width: 100%;
+    text-align: center;
+}
+
+td.top, td.left, td.right, td.bottom {
+    background-color: #F2F2F2;
+}
+
+td.right input, td.left input {
+    text-align: center;
+    padding-bottom: 2px;
+    width: 110px;
+    height: 18px;
+    text-align: center;
+    padding-top: -5px;
+    position: absolute;
+}
+
+td.right input {
+    -webkit-transform: rotate(90deg) translate(-8px, 47px);
+}
+td.left input {
+    -webkit-transform: rotate(-90deg) translate(8px, -47px);
+}
+
+td.middle {
+	text-align: center;
+}
+td.middle select {
+	font-size: 12pt;
+	text-align: center;
+    -webkit-appearance: none;
+    border: 0px;
+    border-radius: 0px;
+    padding: 0px;    
+    background-color: #325573;
+    color: #F2F2F2;
+    font-weight: bold;
+    cursor: pointer;
+}
+td.caption {
+	padding-top: 3px;
+	height: 25px;
+	text-align: center;
+}
+td.caption input {
+	width: 80px;
+	padding: 3px 5px 2px 5px;
+	text-align: center;
+}
+
+div#addArrow {
+	position: absolute;
+	margin-left: 120px;
+	margin-top: 80px;
+}
+div#addArrow div#text {
+	position: absolute;	
+	font-family: 'Bebas';
+	font-size: 12pt;
+	background-color: #F2F2F2;
+	color: #325573;
+	padding-left: 35px;
+	padding: 2px 13px 2px 14px;
+	cursor: pointer;
+}
+
+div#addArrow div#pointyEnd {
+    border-color: transparent transparent transparent #F2F2F2;
+    border-style:solid;
+    border-width: 13px 0px 12px 10px;
+    height: 0px;
+    width: 0px;
+	position: absolute;
+	top: 0; left: 52;
+	cursor: pointer;
+}
+
+div#addArrow div#text:hover {
+	color: #991523;
+}
+
+div#allFrameFormats {
+    position: absolute; 
+    left: 200; 
+    padding-right: 20px;
+    width: 110px;
+    overflow-y: scroll;
+}
+
+div#allFrameFormats::-webkit-scrollbar {
+    width: 4px;
+}
+ 
+div#allFrameFormats::-webkit-scrollbar-track {
+    background-color: #B2B2B2;
+    border-radius: 10px;
+}
+ 
+div#allFrameFormats::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #424242;
+}
+
+p.noFFyet {
+    font-family: 'Bebas';
+    font-size: larger;
+    word-spacing: 3px;
+    text-align: center;
+    width: 60px;
+    padding-top: 30px;
+    padding-left: 10px;
+}

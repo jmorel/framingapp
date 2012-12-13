@@ -1,0 +1,10 @@
+body, div, section, h1, h2, ul, li { padding: 0px; margin: 0px;}
+
+body {
+    background: url('../pix/background.png');
+    font-family: 'Nobile';
+    padding: 0px;
+    margin: 0px;
+    overflow: hidden;
+}
+

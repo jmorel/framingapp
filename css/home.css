@@ -1,0 +1,63 @@
+section#home {
+    position: absolute;
+    top: -2000px;//0px;
+    left: 0px;
+    width: 100%;
+    
+    z-index: 1000;
+}
+
+section#home img#thescream {
+    position: absolute;
+    top: 50px;
+    left: 100px;
+}
+
+section#home h1 {
+    font-family: 'Bebas';
+    font-size: 60pt;
+    background: #325573;
+    color: #FFFFFF;
+    padding-left: 430px;
+    padding-top: 150px;
+}
+
+section#home h2 {
+    font-family: 'MEgalopolisExtra';
+    font-size: 20pt;
+    background: #FFFFFF;
+    color: #325573;
+    padding-left: 430px;
+    padding-top: 5px;
+}
+
+section#home iframe#video {
+    margin-left: 430px;
+    margin-top: 30px;
+    width: 560px;
+    height: 315px;
+}
+
+section#home div#starttext {
+    position: absolute;
+    font-family: 'Bebas';
+    left: 190px;
+    top: 420px;
+    background-color: #991523;
+    color: #F2F2F2;
+    padding: 10px 10px 0px 10px;
+}
+section#home div#startarrow {
+    position: absolute;
+    left: 174px;
+    top: 565px;
+    border-color: #991523 transparent transparent transparent ;
+    border-style:solid;
+    border-width:50px 75px 0px 75px;
+    height: 0px;
+    width: 0px;
+}
+
+section#home div#start:hover {
+    cursor: pointer;
+}
