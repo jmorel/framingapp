@@ -1,4 +1,16 @@
 #################
+## Framing APP
+#################
+
+framingapp.sublime-project
+framingapp.sublime-workspace
+fonts/*
+js/bytescoutpdf1.04.80.js
+js/jquery-1.7.2.min.js
+js/jquery.hoverIntent.minified.js
+js/jquery.mousewheel.js
+
+#################
 ## Eclipse
 #################
 
