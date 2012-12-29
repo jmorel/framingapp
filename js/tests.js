@@ -79,7 +79,7 @@ function setupTestCut() {
     frames.push(frame);
     frameID++;
 
-	frame = new Frame(frameID, frameFormats[0]); // A4
+	/*frame = new Frame(frameID, frameFormats[0]); // A4
     frame.height.mm = 210;
     frame.width.mm = 297;
     frame.updatePXdim();
@@ -88,4 +88,4 @@ function setupTestCut() {
     frame.updatePXpos();
     frames.push(frame);
     frameID++;
-}
+*/}

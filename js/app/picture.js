@@ -60,8 +60,9 @@ function Picture(img_src, width_mm, height_mm) {
             dest.x, dest.y, dest.dx, dest.dy);
     }
 
-    this.printArea = function() {
-        
+    this.pan = function(dx, dy) {
+        this.x += dx;
+        this.y += dy;
     }
     
     this.setImgSource = function(img) {

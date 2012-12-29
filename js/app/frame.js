@@ -22,6 +22,17 @@ function Frame(id, format) {
         this.margin.left.px = this.margin.left.mm * scale.mm2px * zoomLVLs[zoomSlider.value];
         this.margin.right.px = this.margin.right.mm * scale.mm2px * zoomLVLs[zoomSlider.value];
     }
+
+    this.pan = function(dx, dy) {
+        // return false if we do not have to pan this frame
+        if(!this.highlight) { return false; }
+        // return true otherwise (after panning)
+        this.x.px += dx;
+        this.y.px += dy;
+        this.updateMMpos();
+        return true;
+        
+    }
     
     this.rotate = function() {
         // Rotates the frame by 90° in the trigonometric sense
