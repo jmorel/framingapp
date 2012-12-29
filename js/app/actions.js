@@ -60,12 +60,6 @@ function cut() {
                 pdf.pageSetOrientation(BytescoutPDF.PORTRAIT);
                 if(frame.width.px > frame.height.px) { pdf.pageSetOrientation(BytescoutPDF.LANDSCAPE); }
                 
-                // dimension of the frame's inside
-                var innerFrame = {
-                    'width': frame.width.mm - frame.margin.left.mm - frame.margin.right.mm,
-                    'height': frame.height.mm - frame.margin.top.mm - frame.margin.bottom.mm
-                }
-
                 // corresponding image area
                 var source = {
                     'x': frame.x.mm + frame.margin.left.mm,
@@ -73,25 +67,36 @@ function cut() {
                     'dx': frame.width.mm - frame.margin.left.mm - frame.margin.right.mm,
                     'dy': frame.height.mm - frame.margin.top.mm - frame.margin.bottom.mm
                 };
-                // destination onto canvas (fairly simple)
+                // destination onto pdf 
                 var dest = {
-                    'x': 0,
-                    'y': 0,
-                    'width': innerFrame.width,
-                    'height': innerFrame.height
+                    'x': frame.margin.left.mm,
+                    'y': frame.margin.top.mm,
+                    'width': frame.width.mm - frame.margin.left.mm - frame.margin.right.mm,
+                    'height': frame.height.mm - frame.margin.top.mm - frame.margin.bottom.mm
                 };
 
                 // check for boundaries issues
+
+                // worst case: the frame doesn't clip any part of the picture
+                if( source.x + source.dx < 0 ||
+                    source.x > picture.width.mm ||
+                    source.y + source.dy <0 ||
+                    source.y > picture.height.mm) {
+                        // don't do anything with this frame, let's just skip it
+                        continue;
+                }
+
+                // the frame is only partly over the picture
                 if(source.x < 0) { 
                     source.dx = source.dx + source.x; 
                     dest.width = dest.width + source.x;
-                    dest.x = -source.x;
+                    dest.x = dest.x - source.x;
                     source.x = 0;
                 }
                 if(source.y < 0) { 
                     source.dy = source.dy + source.y; 
                     dest.height = dest.height + source.y;
-                    dest.y = -source.y;
+                    dest.y = dest.y - source.y;
                     source.y = 0;
                 }
                 if(source.x + source.dx > picture.width.mm) {
@@ -102,8 +107,7 @@ function cut() {
                     source.dy = picture.height.mm - source.y;
                     dest.height = picture.height.mm - source.y;
                 }
-                console.log(source, dest);
-                
+                                
                 // convert all to print pixels
                 var widthRes = picture.img.width / picture.width.mm;
                 var heightRes = picture.img.height / picture.height.mm;
@@ -119,34 +123,23 @@ function cut() {
                 dest.height = dest.height * pageRes;
 
                 // create temporary canvas element
-                // represents the inner area of the frame
                 var tempCanvas = document.createElement('canvas');
-                tempCanvas.width = innerFrame.width * pageRes;
-                tempCanvas.height = innerFrame.height * pageRes;
+                tempCanvas.width = source.dx;
+                tempCanvas.height = source.dy;
                 var tempContext = tempCanvas.getContext('2d');
+
                 // draw into canvas
                 tempContext.drawImage(
                     picture.img,
                     source.x, source.y, source.dx, source.dy,
-                    dest.x, dest.y, dest.width, dest.height);
+                    0 ,0, source.dx, source.dy);
                 
                 // load canvas into PDF
                 pdf.imageLoadFromCanvas(tempCanvas);
-                var canvasPos = {
-                    'x': frame.margin.left.mm * pageRes,
-                    'y': frame.margin.top.mm * pageRes
-                }
-
-                console.log('frame', frame.width.mm, frame.margin.left.mm, frame.margin.right.mm);
-                console.log('innerFrame', innerFrame);
-                console.log('pdf', pdf);
-                console.log('canvas', tempCanvas.width);
-                console.log(source, dest, canvasPos);
-                
                 pdf.imagePlaceSetSize(
-                    canvasPos.x, canvasPos.y, // position
+                    dest.x, dest.y, // position
                     0, // rotation
-                    tempCanvas.width, tempCanvas.height);
+                    dest.width, dest.height);
             }
         }
 
