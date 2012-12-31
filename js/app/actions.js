@@ -12,151 +12,22 @@ function addNewFrame(formatID) {
 }
 
 function cut() {
-
-    /*alert('We should be cutting the image here!');*/
-
-    // we will generate one pdf per paper format (margins are irrelevant)
-
-
-    // checking paper sizes used
-    // result contained in sheetSizesUsed
-    var sheetSizesUsed = Array();
-    for(var i=0; i<frames.length; i++) {
-        var alreadyThere = false;
-        for(var j=0; j<sheetSizesUsed.length; j++) { 
-            if(frames[i].sheet == sheetSizesUsed[j]) { 
-                alreadyThere = true; 
-            } 
-        }
-        if(!alreadyThere) {
-            sheetSizesUsed.push(frames[i].sheet);
-        }
+    // hide/show function
+    var hidden = !($('div#pdflinks').css('display') == 'block');
+    if(hidden) {
+        // populate list of pdf links
+        populatePDFlinks();
+        // show list of links
+        $('div#pdflinks').show();
+        // toggle icon in the menu to red     
+        $('img#cut_button').attr('src','pix/scissors-red.png');
     }
-
-    // for each paper format
-    for(var i=0; i<sheetSizesUsed.length; i++) {
-        var sheetSize = sheetSizesUsed[i];
-
-        // new pdf
-        var pdf = new BytescoutPDF();
-
-        for(var j=0; j<frames.length; j++) {
-            if(frames[j].sheet == sheetSize) {
-                var frame = frames[j];
-                pdf.pageAdd();
-                // todo: select pageTextSize based on the sheet size used
-                pdf.pageSetSize(BytescoutPDF.A4);
-
-                // calculate page resolution
-                // this will define the how we should stretch or squeeze the image before printing.
-                /* Beware this BytescoutPDF.A4 only works for 72dpi
-                For custom resolution, it'd better to use:
-                pdf.pageSetWidth(8.25); // 8.25 inches = 21 cm
-                pdf.pageSetHeight(13.25); // 13.25 inches = 29.7 cm
-                */
-                var pageRes = 72 / 25.4; // this should be changed whenever possible
-
-                // set page orientation
-                pdf.pageSetOrientation(BytescoutPDF.PORTRAIT);
-                if(frame.width.px > frame.height.px) { pdf.pageSetOrientation(BytescoutPDF.LANDSCAPE); }
-                
-                // corresponding image area
-                var source = {
-                    'x': frame.x.mm + frame.margin.left.mm,
-                    'y': frame.y.mm + frame.margin.top.mm,
-                    'dx': frame.width.mm - frame.margin.left.mm - frame.margin.right.mm,
-                    'dy': frame.height.mm - frame.margin.top.mm - frame.margin.bottom.mm
-                };
-                // destination onto pdf 
-                var dest = {
-                    'x': frame.margin.left.mm,
-                    'y': frame.margin.top.mm,
-                    'width': frame.width.mm - frame.margin.left.mm - frame.margin.right.mm,
-                    'height': frame.height.mm - frame.margin.top.mm - frame.margin.bottom.mm
-                };
-
-                // check for boundaries issues
-
-                // worst case: the frame doesn't clip any part of the picture
-                if( source.x + source.dx < 0 ||
-                    source.x > picture.width.mm ||
-                    source.y + source.dy <0 ||
-                    source.y > picture.height.mm) {
-                        // don't do anything with this frame, let's just skip it
-                        continue;
-                }
-
-                // the frame is only partly over the picture
-                if(source.x < 0) { 
-                    source.dx = source.dx + source.x; 
-                    dest.width = dest.width + source.x;
-                    dest.x = dest.x - source.x;
-                    source.x = 0;
-                }
-                if(source.y < 0) { 
-                    source.dy = source.dy + source.y; 
-                    dest.height = dest.height + source.y;
-                    dest.y = dest.y - source.y;
-                    source.y = 0;
-                }
-                if(source.x + source.dx > picture.width.mm) {
-                    source.dx = picture.width.mm - source.x;
-                    dest.width = picture.width.mm - source.x;
-                }
-                if(source.y + source.dy >   picture.height.mm) {
-                    source.dy = picture.height.mm - source.y;
-                    dest.height = picture.height.mm - source.y;
-                }
-                                
-                // convert all to print pixels
-                var widthRes = picture.img.width / picture.width.mm;
-                var heightRes = picture.img.height / picture.height.mm;
-
-                source.x = source.x * widthRes;
-                source.y = source.y * widthRes;
-                source.dx = source.dx * widthRes;
-                source.dy = source.dy * widthRes;
-
-                dest.x = dest.x * pageRes;
-                dest.y = dest.y * pageRes;
-                dest.width = dest.width * pageRes;
-                dest.height = dest.height * pageRes;
-
-                // create temporary canvas element
-                var tempCanvas = document.createElement('canvas');
-                tempCanvas.width = source.dx;
-                tempCanvas.height = source.dy;
-                var tempContext = tempCanvas.getContext('2d');
-
-                // draw into canvas
-                tempContext.drawImage(
-                    picture.img,
-                    source.x, source.y, source.dx, source.dy,
-                    0 ,0, source.dx, source.dy);
-                
-                // load canvas into PDF
-                pdf.imageLoadFromCanvas(tempCanvas);
-                pdf.imagePlaceSetSize(
-                    dest.x, dest.y, // position
-                    0, // rotation
-                    dest.width, dest.height);
-            }
-        }
-
-        // simple CONCLUSIVE test ripped off the official website
-        /*pdf = new BytescoutPDF();
-        pdf.propertiesSet("Sample document title", "Sample subject", "keyword1, keyword 2, keyword3", "Document Author Name", "Document Creator Name");
-        pdf.pageSetSize(BytescoutPDF.Letter);
-        pdf.pageSetOrientation(true);
-        pdf.pageAdd();
-        pdf.fontSetName('Helvetica'); 
-        pdf.fontSetStyle(false, true, true);
-        pdf.textAdd(50, 50, 'hello');*/
-
-        // open in new window the generated pdf
-        var pdfBase64 = pdf.getBase64Text();
-        window.open('data:application/pdf;base64,' + pdfBase64, '_blank');
-    } 
+    else {
+        // hide list of links
+        $('div#pdflinks').hide();
+        // toggle icon in the menu to normal
+        $('img#cut_button').attr('src','pix/scissors.png');
+    }
 }
 
 function canvasHover(e) {

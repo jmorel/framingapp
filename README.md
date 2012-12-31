@@ -37,3 +37,9 @@ Array frames
 position in frames indicates the stack level: 0 =  bottom, length-1 = top
 frameID id of the last frame created.
 
+### Vocable
+
+* sheetSize: A4, A5, etc...
+* format: an instance of the FrameFormat
+*
+

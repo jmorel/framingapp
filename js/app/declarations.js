@@ -1,3 +1,5 @@
+var MAX_PAGES_PER_PDF = 10;
+
 var scale = {
     'mm2px': 0, // in px per mm
     'px2mm': 0, // in mm per px
@@ -112,8 +114,10 @@ function setupActions() {
         function() {$(this).attr('src','pix/seethrough-off-red.png');},
         function() {$(this).attr('src','pix/seethrough-off.png');});
     $('img#cut_button').hover(
-        function() {$(this).attr('src','pix/scissors-red.png');},
-        function() {$(this).attr('src','pix/scissors.png');});
+        function() {
+            if($('div#pdflinks').css('display') != 'block') { $(this).attr('src','pix/scissors-red.png') } },
+        function() {
+            if($('div#pdflinks').css('display') != 'block') { $(this).attr('src','pix/scissors.png') } });
 
     // main drawing surface
 	canvas = $('canvas#can')[0];
