@@ -67,28 +67,30 @@ function generatePDF(sheetSize, frameIDs) {
     // new pdf
     var pdf = new BytescoutPDF();
 
+    // set page size for this pdf
+    var mapping = {
+        'A0': BytescoutPDF.A0, 
+        'A1': BytescoutPDF.A1, 
+        'A2': BytescoutPDF.A2,
+        'A3': BytescoutPDF.A3, 
+        'A4': BytescoutPDF.A4, 
+        'A5': BytescoutPDF.A5, 
+        'A6': BytescoutPDF.A6, 
+        'A7': BytescoutPDF.A7, 
+        'Letter': BytescoutPDF.Letter, 
+        'Legal': BytescoutPDF.Legal, 
+        'Executive': BytescoutPDF.Executive, 
+        'JisB5': BytescoutPDF.JisB5
+    }
+    pdf.pageSetSize(mapping[sheetSize]);
+    // set page orientation
+    pdf.pageSetOrientation(BytescoutPDF.PORTRAIT);
+
     for(var j=0; j<frameIDs.length; j++) {
         var id = frameIDs[j];
         var frame = frames[id];
 
         pdf.pageAdd();
-        
-        var mapping = {
-            'A0': BytescoutPDF.A0, 
-            'A1': BytescoutPDF.A1, 
-            'A2': BytescoutPDF.A2,
-            'A3': BytescoutPDF.A3, 
-            'A4': BytescoutPDF.A4, 
-            'A5': BytescoutPDF.A5, 
-            'A6': BytescoutPDF.A6, 
-            'A7': BytescoutPDF.A7, 
-            'Letter': BytescoutPDF.Letter, 
-            'Legal': BytescoutPDF.Legal, 
-            'Executive': BytescoutPDF.Executive, 
-            'JisB5': BytescoutPDF.JisB5
-        }
-
-        pdf.pageSetSize(mapping[sheetSize]);
 
         // calculate page resolution
         // this will define the how we should stretch or squeeze the image before printing.
@@ -99,9 +101,7 @@ function generatePDF(sheetSize, frameIDs) {
         */
         var pageRes = 72 / 25.4; // this should be changed whenever possible
 
-        // set page orientation
-        pdf.pageSetOrientation(BytescoutPDF.PORTRAIT);
-        if(frame.width.px > frame.height.px) { pdf.pageSetOrientation(BytescoutPDF.LANDSCAPE); console.log('landscape');}
+        
         
         // corresponding image area
         var source = {
@@ -150,7 +150,17 @@ function generatePDF(sheetSize, frameIDs) {
             source.dy = picture.height.mm - source.y;
             dest.height = picture.height.mm - source.y;
         }
-                        
+        
+        // do the rotation now that we are still working in mm
+        var isLandscape = (frame.width.mm > frame.height.mm);
+        var angle = 0;
+        if(isLandscape) {
+            angle = -90;
+            xtemp = dest.x;
+            dest.x = frame.height.mm - dest.y - dest.height;
+            dest.y = xtemp - dest.height;
+        }
+
         // convert all to print pixels
         var widthRes = picture.img.width / picture.width.mm;
         var heightRes = picture.img.height / picture.height.mm;
@@ -179,11 +189,14 @@ function generatePDF(sheetSize, frameIDs) {
         
         // load canvas into PDF
         pdf.imageLoadFromCanvas(tempCanvas);
+        // we have to be attentive of whether this is a portrait (standard) or landscape frame
+        /*if(frame.width.px > frame.height.px) { pdf.pageSetOrientation(BytescoutPDF.LANDSCAPE); console.log('landscape');}*/
+        
         pdf.imagePlaceSetSize(
             dest.x, dest.y, // position
-            0, // rotation
+            angle, // rotation
             dest.width, dest.height);
-    }
+}
 
     // open in new window the generated pdf
     var pdfBase64 = pdf.getBase64Text();

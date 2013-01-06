@@ -201,9 +201,7 @@ function toggleSeeThrough() {
 }
 
 function zoomInOut(evt, center) {
-    console.log("before ", center);
     center = center || {'x': document.width/2, 'y':document.height/2};
-    console.log("after ", center);
     var h = zoomLVLs[zoomSlider.value] / zoomLVLs[oldZoomSliderValue];
     oldZoomSliderValue = zoomSlider.value;
     picture.x = h*(picture.x-center.x) + center.x;
