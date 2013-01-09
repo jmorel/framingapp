@@ -227,9 +227,15 @@ function setupSettingsPanel() {
 
     resizeSettings();
 
-    // save state / upload state
-    //$('img#uploadstate').click(uploadState);
-    $('img#downloadstate').click(downloadState);
+    // save/restore state
+    // the link to the "restore" function is found in app/environment.js
+    $('img#savestate').click(saveState);
+    $('img#savestate').hover(
+        function() {$(this).attr('src','pix/save-red.png');},
+        function() {$(this).attr('src','pix/save.png');});
+    $('img#restorestate').hover(
+        function() {$(this).attr('src','pix/restore-red.png');},
+        function() {$(this).attr('src','pix/restore.png');});
 
 	// Populate paper sizes list in the "new frame format form"
     $('select#newFF_sheetsize').html(sheetSizesOptions());
@@ -308,7 +314,7 @@ function setupSettingsPanel() {
     });
 }
 
-function setupStateUpload() {
+function setupRestoreState() {
 
     // return false if the extension is not permitted
     function checkFileExtension(file) {
@@ -322,7 +328,7 @@ function setupStateUpload() {
     
     // activate file upload with classical click and select method
     // make sure the click on the decoy triggers the input field
-    $('img#uploadstate').click(function() {
+    $('img#restorestate').click(function() {
         $('input#stateinput').click();
     });
 
@@ -345,4 +351,116 @@ function setupStateUpload() {
         var content = reader.readAsText(file);
         $(this).val('');
     });
+}
+
+function updateAppState(state) {
+
+    // update picture properties
+    $('input#widthMM').val(state.picture.width.mm).change();
+    $('input#heightMM').val(state.picture.height.mm).change();
+
+    // update frame formats
+    frameFormats = new Array();
+    for(var i=0; i<state.frameFormats.length; i++) {
+        data = state.frameFormats[i];
+        ff = new FrameFormat;
+        ff.name = data.name;
+        ff.sheet = data.sheet;
+        ff.width = data.width;
+        ff.height = data.height;
+        ff.margin = data.margin;
+        ff.id = data.id;
+        frameFormats.push(ff);
+    }
+    frameFormatsID = state.frameFormatsID;
+    // insert into the list of FrameFormats
+    $('div#allFrameFormats').html(frameList4Settings());
+    // insert into the app menu
+    $('ul#newFrame').html(frameList4Menu());
+
+    // update frames
+    frames = new Array();
+    for(var i=0; i<state.frames.length; i++) {
+        data = state.frames[i];
+        f = new Frame;
+        f.id = data.id;
+        f.sheet = data.sheet;
+        f.width.mm = data.width;
+        f.height.mm = data.height;
+        f.margin.top.mm = data.margin.top;
+        f.margin.bottom.mm = data.margin.bottom;
+        f.margin.left.mm = data.margin.left;
+        f.margin.right.mm = data.margin.right;
+        f.x.mm = data.x;
+        f.y.mm = data.y;
+        f.seethrough = data.seethrough;
+        f.updatePXpos();
+        f.updatePXdim();
+        frames.push(f);
+    }
+    frameID = data.frameID;
+
+    refresh();
+}
+
+function saveState() {
+    // collect data
+
+    var picturedata = {
+        'width': {
+            'px': picture.width.px,
+            'mm': picture.width.mm},
+        'height': {
+            'px': picture.height.px,
+            'mm': picture.height.mm},
+    };
+
+    var dataframeformats = [];
+    for(var i=0; i<frameFormats.length; i++) {
+        var ff = frameFormats[i];
+        dataframeformats.push({
+            'name': ff.name,
+            'sheet': ff.sheet,
+            'width': ff.width,
+            'height': ff.height,
+            'margin': {
+                'top': ff.margin.top, 
+                'bottom': ff.margin.bottom, 
+                'left': ff.margin.left, 
+                'right': ff.margin.right},
+            'id': ff.id
+        });
+    }
+
+    var dataframes = [];
+    for(var i=0; i<frames.length; i++) {
+        var f = frames[i];
+        dataframes.push({
+            'id': f.id,
+            'sheet': f.sheet,
+            'width': f.width.mm,
+            'height': f.height.mm,
+            'margin': {
+                'top': f.margin.top.mm,
+                'bottom': f.margin.bottom.mm,
+                'left': f.margin.left.mm,
+                'right': f.margin.right.mm },
+            'x': f.x.mm,
+            'y': f.y.mm,
+            'seethrough': f.seethrough
+        });
+    }
+
+    var state = {
+        'picture': picturedata,
+        'frameFormatsID': frameFormatsID,
+        'frameFormats': dataframeformats,
+        'frameID': frameID,
+        'frames': dataframes
+    }
+    
+    // build text file and offer to download
+    var bb = new BlobBuilder;
+    bb.append(JSON.stringify(state));
+    saveAs(bb.getBlob("text/plain;charset=utf-8"), "framingappstate");
 }

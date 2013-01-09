@@ -114,10 +114,12 @@ function setupActions() {
         function() {$(this).attr('src','pix/seethrough-off-red.png');},
         function() {$(this).attr('src','pix/seethrough-off.png');});
     $('img#cut_button').hover(
-        function() {
-            if($('div#pdflinks').css('display') != 'block') { $(this).attr('src','pix/scissors-red.png') } },
-        function() {
-            if($('div#pdflinks').css('display') != 'block') { $(this).attr('src','pix/scissors.png') } });
+        function() {$(this).attr('src','pix/scissors-red.png');},
+        function() {$(this).attr('src','pix/scissors.png');});
+    $('img#closepdflinks').hover(
+        function() {$(this).attr('src','pix/cross-red.png');},
+        function() {$(this).attr('src','pix/cross-white.png');});
+    
 
     // main drawing surface
 	canvas = $('canvas#can')[0];
@@ -148,6 +150,7 @@ function setupActions() {
     // settings
     $('img#settings_button').click(function() {
         $('section#menu').animate({right: '-110px'}, 'fast', function() {
+            $('div#pdflinks').hide();
             $('section#settings').animate({left: '0px'}, 'slow');
         });
     });
@@ -180,6 +183,23 @@ function setupActions() {
     // toggle see through property
     $('img#toggleseethrough_button').click(toggleSeeThrough);
 
-    // cut into pieces 
-    $('img#cut_button').click(cut);
+    // display/hide links to PDFs
+    $('img#cut_button').click(function() {
+        // hide/show function
+        var hidden = !($('div#pdflinks').css('display') == 'block');
+        if(hidden) {
+            // populate list of pdf links
+            populatePDFlinks();
+            // show list of links
+            $('div#pdflinks').show();
+        }
+        else {
+            // hide list of links
+            $('div#pdflinks').hide();
+        }
+    });
+
+    $('img#closepdflinks').click(function() {
+        $('div#pdflinks').hide();
+    })
 }

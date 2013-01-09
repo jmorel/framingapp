@@ -9,7 +9,7 @@ function setupEnvironment() {
 	   function(newFS) {
             fs = newFS;
             setupPictureUpload(); // locate in settings.js because of asynchronous shit
-            setupStateUpload();
+            setupRestoreState();
 	   }, 
 	   // could not initiate the filesystem; no point in going further
 	   function(e) {

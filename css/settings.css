@@ -17,6 +17,41 @@ h1 {
     padding-top: 70px;
 }
 
+table#save-restore {
+    font-family: 'Nobile';
+    font-size: small;
+    font-style: italic;
+    font-weight: normal;
+    color: #FFFFFF;
+    float: right;
+    padding-top: 2em;
+    padding-right: 2em;
+}
+table#save-restore td:nth-child(1) {
+    text-align: right;
+    line-height: 100%;
+}
+table#save-restore td:nth-child(4) {
+    text-align: left;
+    line-height: 100%;
+}
+table#save-restore td:nth-child(2) {
+    padding-right: 0.5em;
+}
+table#save-restore td:nth-child(3) {
+    padding-left: 0.3em;
+}
+table#save-restore img {
+    width: 40px;
+}
+table#save-restore input#stateinput {
+    opacity: 0;
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 0px;
+}
+
 h2 {
     font-family: 'MEgalopolisExtra';
     font-size: 20pt;
@@ -72,9 +107,4 @@ div#go:hover {
     cursor: pointer;
     background: RGBa(242, 242, 242, 0.9);
     color: #991523;    
-}
-
-div#col2 input#stateinput {
-    opacity: 0;
-    position: absolute;
 }

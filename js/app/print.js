@@ -88,7 +88,9 @@ function generatePDF(sheetSize, frameIDs) {
 
     for(var j=0; j<frameIDs.length; j++) {
         var id = frameIDs[j];
-        var frame = frames[id];
+        var frame;
+        for(var i=0; i<frames.length; i++) { if(frames[i].id == id) {frame = frames[i];}}
+        if(!frame) {return false;} // break
 
         pdf.pageAdd();
 

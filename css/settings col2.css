@@ -9,33 +9,7 @@ div#col2 h2 {
     margin-bottom: 25px;
 }
 
-table#instructions {
-    width: 100%;
-    font-family: 'Nobile';
-    color: #FFFFFF;
-    font-size: small;
-}
-
-table#instructions img {
-    width: 70px;
-}
-
-table#instructions td:first-child {
-    width: 130px;
-    text-align: justify;
-}
-
-table#instructions td:last-child {
-    width: 150px;
-    text-align: center;
-    padding-left: 1em;
-}
-
-table#instructions {
-    text-align: center;
-}
-
-form table {
+div#col2 table {
     font-family: 'Nobile';
     font-size: small;
     border-spacing: 0px;
@@ -54,12 +28,14 @@ table input {
 }
 
 table img {
-    width: 15px;
+    width: 10px;
     cursor: pointer;
+    margin: auto;
 }
 
 td.top, td.bottom {
     height: 17px;
+    text-align: center;
 }
 td.left, td.right {
     width: 17px;

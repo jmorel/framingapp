@@ -69,7 +69,18 @@
 
 <section id="settings">
     <div id="settings">
-        <h1>Settings</h1>
+        <h1>
+            <table id="save-restore">
+                <tr>
+                    <td>save current<br>settings/state
+                    <td><img src="pix/save.png" id="savestate" />
+                    <td><img src="pix/restore.png" id="restorestate" /> 
+                    <td>restore saved<br>settings/state
+                    <td><input type="file" id="stateinput">
+            </table>
+            Settings
+        </h1>
+        
         <div id="col1">
             <h2>Picture</h2>
             <div class="content">
@@ -96,12 +107,9 @@
         
         <div id="col2">
             <h2>Frames</h2>
-            <table id="instructions">
-                <tr>
-                    <td>Use the form below to set up your frame formats.
-                    <td>or
-                    <td>upload saved settings<br><img src="pix/upload.png" id="uploadstate" /> <input type="file" id="stateinput"/>
-            </table>
+
+            <p>Use the form below to set up and modify your frame formats.<br>
+                <i>NB: modification to current frame formats will not affect already created frames.</i></p>
 
             <form method="get" style="float: left">
                 <table>
@@ -151,7 +159,6 @@
 <section id="menu">
     <ul>
         <li id="settings_button"><img src="pix/settings.png" alt="settings" id="settings_button"></li>
-        <li id="state"><img src="pix/upload.png" id="uploadstate" /><img src="pix/download.png" id="downloadstate" /></li>
         <li><img src="pix/add.png" alt="add" id="add_button"></li>
         <li><img src="pix/trash.png" alt="delete" id="delete_button"></li>
         <li><img src="pix/rotate.png" alt="rotate" id="rotate_button"></li>
@@ -166,6 +173,7 @@
     </ul>
 
     <div id="pdflinks">
+        <img id="closepdflinks" src="pix/cross-white.png">
         <h2>PDF links</h2>
         <p>Each link will open a pdf (of a reasonable size) in a new window.<br>
             Save them before printing.
