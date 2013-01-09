@@ -9,7 +9,33 @@ div#col2 h2 {
     margin-bottom: 25px;
 }
 
-table {
+table#instructions {
+    width: 100%;
+    font-family: 'Nobile';
+    color: #FFFFFF;
+    font-size: small;
+}
+
+table#instructions img {
+    width: 70px;
+}
+
+table#instructions td:first-child {
+    width: 130px;
+    text-align: justify;
+}
+
+table#instructions td:last-child {
+    width: 150px;
+    text-align: center;
+    padding-left: 1em;
+}
+
+table#instructions {
+    text-align: center;
+}
+
+form table {
     font-family: 'Nobile';
     font-size: small;
     border-spacing: 0px;

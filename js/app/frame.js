@@ -148,18 +148,28 @@ function Frame(id, format) {
     this.selected = false;
     
     // Physical characteristics of the frame in mm
-    this.width = {'px': '', 'mm': format.width};
-    this.height = {'px': '', 'mm': format.height};
-    this.margin = {'top': {}, 'bottom': {}, 'left': {}, 'right':{}};
-    this.margin.top = {'px': '', 'mm': format.margin.top};
-    this.margin.bottom = {'px': '', 'mm': format.margin.bottom};
-    this.margin.left = {'px': '', 'mm': format.margin.left};
-    this.margin.right = {'px': '', 'mm': format.margin.right};
-    // Convert to px
-    this.updatePXdim();
+    this.width = {'px': 0, 'mm': 0};
+    this.height = {'px': 0, 'mm': 0};
+    this.margin = {
+        'top': {'px': 0, 'mm': 0}, 
+        'bottom': {'px': 0, 'mm': 0}, 
+        'left': {'px': 0, 'mm': 0}, 
+        'right':{'px': 0, 'mm': 0}
+    };
+    
 
-    // Used for printing later on
-    this.sheet = format.sheet;
+    if(format) {
+        this.width.mm = format.width;
+        this.height.mm = format.height;
+        this.margin.top.mm = format.margin.top;
+        this.margin.bottom.mm = format.margin.bottom;
+        this.margin.left.mm = format.margin.left;
+        this.margin.right.mm = format.margin.right;
+        // Convert to px
+        this.updatePXdim();
+        // Used for printing later on
+        this.sheet = format.sheet;
+    }
     
     // Position of the frame with regard to the top left corner of the image
     // Initially positionned at the center of the screen

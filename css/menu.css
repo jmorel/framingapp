@@ -1,7 +1,8 @@
 section#menu {
     position: absolute;
     top: 0px;
-    right: -110px;
+    /*right: -110px;*/
+    right: 0;
     width: 48px;
     padding: 40px 26px 0px 26px;
     height: 100%;
@@ -25,8 +26,11 @@ section#menu ul:first-child>li {
     margin-bottom: 15px;
 }
 
-section#menu ul:first-child>li:first-child {
+section#menu ul:first-child>li#settings_button {
     margin-bottom: 60px;
+}
+section#menu ul:first-child>li#state>img {
+    width: 20px;
 }
 
 section#menu ul:first-child>li:last-child {

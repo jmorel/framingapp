@@ -3,6 +3,9 @@ function testCut() {
 }
 
 function setupTestCut() {
+
+	return;
+
 	// add frame format 1
 	sheetsize = 'A4';
 	format = new FrameFormat;

@@ -18,6 +18,7 @@
     <script type="text/javascript" src="js/jquery.mousewheel.js"></script>
     <script type="text/javascript" src="js/utilities.js"></script>
     <script type="text/javascript" src="js/bytescoutpdf1.04.80.js"></script>
+    <script type="text/javascript" src="js/FileSaver.js"></script>
     
     <!-- data structures -->
     <script type="text/javascript" src="js/app/frame.js"></script>
@@ -95,27 +96,32 @@
         
         <div id="col2">
             <h2>Frames</h2>
+            <table id="instructions">
+                <tr>
+                    <td>Use the form below to set up your frame formats.
+                    <td>or
+                    <td>upload saved settings<br><img src="pix/upload.png" id="uploadstate" /> <input type="file" id="stateinput"/>
+            </table>
 
-    		<p>Use the form below to set up your frame formats.</p>
-                <form method="get" style="float: left">
-                    <table>
-                        <tr>
-                            <td class="top">
-                            <td class="top"> <input type="number" placeholder="top" id="newFF_margintop" tabindex="1">
-                            <td class="top">
-                        <tr>
-                            <td class="left"> <input type="number" placeholder="left" id="newFF_marginleft" tabindex="2">
-                            <td class="middle"> <select id="newFF_sheetsize" tabindex="5"></select>
-                            <td class="right"> <input type="number" placeholder="right" id="newFF_marginright" tabindex="3">
-                        <tr>
-                            <td class="bottom"> 
-                            <td class="bottom"> <input type="number" placeholder="bottom" id="newFF_marginbottom" tabindex="4">
-                            <td class="bottom">
-        				<tr>
-        					<td colspan="3" class="caption"> <input type="text" placeholder="name" id="newFF_name" tabindex="6">
-                    </table>
-                    <input type="submit" style="opacity: 0; height: 20px;">
-                </form>
+            <form method="get" style="float: left">
+                <table>
+                    <tr>
+                        <td class="top">
+                        <td class="top"> <input type="number" placeholder="top" id="newFF_margintop" tabindex="1">
+                        <td class="top">
+                    <tr>
+                        <td class="left"> <input type="number" placeholder="left" id="newFF_marginleft" tabindex="2">
+                        <td class="middle"> <select id="newFF_sheetsize" tabindex="5"></select>
+                        <td class="right"> <input type="number" placeholder="right" id="newFF_marginright" tabindex="3">
+                    <tr>
+                        <td class="bottom"> 
+                        <td class="bottom"> <input type="number" placeholder="bottom" id="newFF_marginbottom" tabindex="4">
+                        <td class="bottom">
+    				<tr>
+    					<td colspan="3" class="caption"> <input type="text" placeholder="name" id="newFF_name" tabindex="6">
+                </table>
+                <input type="submit" style="opacity: 0; height: 20px;">
+            </form>
                 
 
 			<div id="addArrow">
@@ -144,7 +150,8 @@
 
 <section id="menu">
     <ul>
-        <li><img src="pix/settings.png" alt="settings" id="settings_button"></li>
+        <li id="settings_button"><img src="pix/settings.png" alt="settings" id="settings_button"></li>
+        <li id="state"><img src="pix/upload.png" id="uploadstate" /><img src="pix/download.png" id="downloadstate" /></li>
         <li><img src="pix/add.png" alt="add" id="add_button"></li>
         <li><img src="pix/trash.png" alt="delete" id="delete_button"></li>
         <li><img src="pix/rotate.png" alt="rotate" id="rotate_button"></li>

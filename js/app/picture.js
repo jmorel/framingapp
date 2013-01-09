@@ -3,8 +3,8 @@ function Picture(img_src, width_mm, height_mm) {
     // ATTRIBUTES
     this.width = {'px': 0, 'mm': 0},
     this.height = {'px': 0, 'mm': 0},
-    this.x = 0;
-    this.y = 0;
+    this.x = 0; // in px, used only for display
+    this.y = 0; // in px, used only for display
     this.img = new Image();
     
     // METHODS

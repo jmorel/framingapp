@@ -227,6 +227,10 @@ function setupSettingsPanel() {
 
     resizeSettings();
 
+    // save state / upload state
+    //$('img#uploadstate').click(uploadState);
+    $('img#downloadstate').click(downloadState);
+
 	// Populate paper sizes list in the "new frame format form"
     $('select#newFF_sheetsize').html(sheetSizesOptions());
 
@@ -301,5 +305,44 @@ function setupSettingsPanel() {
             init();
         });
         
+    });
+}
+
+function setupStateUpload() {
+
+    // return false if the extension is not permitted
+    function checkFileExtension(file) {
+        var extension = file.name.split('.').pop().toLowerCase();
+        if(!['txt'].hasValue(extension)) {
+            alert('Please chose a text file.');
+            return false;
+        }
+        return true;
+    }
+    
+    // activate file upload with classical click and select method
+    // make sure the click on the decoy triggers the input field
+    $('img#uploadstate').click(function() {
+        $('input#stateinput').click();
+    });
+
+    // upon the selection of a new file
+    $('input#stateinput').change(function() {
+        // get the file
+        var files = this.files;
+        var file = null;
+        for(var i=0; i<files.length; i++) { file = files[i]; }
+        if(!file) { return; }
+        // check that the file is an image
+        if(!checkFileExtension(file)) { return; }
+        // perform the upload
+        var reader =  new FileReader();
+        reader.onload = function() {
+            // convert data to JSON
+            var state = eval('(' + reader.result + ')');
+            updateAppState(state);
+        }
+        var content = reader.readAsText(file);
+        $(this).val('');
     });
 }
