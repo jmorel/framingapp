@@ -89,7 +89,8 @@ function generatePDF(sheetSize, frameIDs) {
     for(var j=0; j<frameIDs.length; j++) {
         var id = frameIDs[j];
         var frame;
-        for(var i=0; i<frames.length; i++) { if(frames[i].id == id) {frame = frames[i];}}
+        var framePos;
+        for(var i=0; i<frames.length; i++) { if(frames[i].id == id) {frame = frames[i]; framePos=i;}}
         if(!frame) {return false;} // break
 
         pdf.pageAdd();
@@ -168,9 +169,9 @@ function generatePDF(sheetSize, frameIDs) {
         var heightRes = picture.img.height / picture.height.mm;
 
         source.x = source.x * widthRes;
-        source.y = source.y * widthRes;
+        source.y = source.y * heightRes;
         source.dx = source.dx * widthRes;
-        source.dy = source.dy * widthRes;
+        source.dy = source.dy * heightRes;
 
         dest.x = dest.x * pageRes;
         dest.y = dest.y * pageRes;
@@ -188,6 +189,34 @@ function generatePDF(sheetSize, frameIDs) {
             picture.img,
             source.x, source.y, source.dx, source.dy,
             0 ,0, source.dx, source.dy);
+
+        // also draw borders from other frames within this canvas
+        tempContext.fillStyle = '#FFF';
+        for(var i=0; i<frames.length; i++) {
+            f = frames[i];
+            // skip if the main frame is seethrough and the temp frame is under it.
+            if(frame.seethrough && framePos>i) { continue; }
+            tempContext.fillRect( // top
+                (f.x.mm - frame.x.mm) * widthRes, 
+                (f.y.mm - frame.y.mm) * heightRes,
+                f.width.mm * widthRes,
+                f.margin.top.mm * heightRes);
+            tempContext.fillRect( // bottom
+                (f.x.mm - frame.x.mm) * widthRes, 
+                (f.y.mm + f.height.mm - f.margin.bottom.mm - frame.y.mm) * heightRes,
+                f.width.mm * widthRes,
+                f.margin.bottom.mm * heightRes);
+            tempContext.fillRect( // left
+                (f.x.mm - frame.x.mm) * widthRes, 
+                (f.y.mm - frame.y.mm) * heightRes,
+                f.margin.left.mm * widthRes,
+                f.height.mm * heightRes);
+            tempContext.fillRect( // right
+                (f.x.mm + f.width.mm - f.margin.right.mm - frame.x.mm) * widthRes, 
+                (f.y.mm - frame.y.mm) * heightRes,
+                f.margin.right.mm * widthRes,
+                f.height.mm * heightRes);
+        }
         
         // load canvas into PDF
         pdf.imageLoadFromCanvas(tempCanvas);

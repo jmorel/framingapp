@@ -1,7 +1,7 @@
 section#settings {
     position: absolute;
     top: 0px;
-    left: 0px;//-980px;
+    left: 0; -980px;
     height: 100%;
     width: 800px;
     background: #325573;    
