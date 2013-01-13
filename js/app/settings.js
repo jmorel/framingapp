@@ -287,9 +287,6 @@ function setupSettingsPanel() {
     });
     
     $('div#go').click(function() {
-        
-        // FOR TESTING PURPOSES ONLY
-        setupTestCut();
 
         // check that all settings are ok
         
