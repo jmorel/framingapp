@@ -1,6 +1,6 @@
 section#home {
     position: absolute;
-    top: -2000px;//0px;
+    top: 0px;//-2000px;//0px;
     left: 0px;
     width: 100%;
     
@@ -60,4 +60,40 @@ section#home div#startarrow {
 
 section#home div#start:hover {
     cursor: pointer;
+}
+
+div#credits {
+    background: RGBa(242, 242, 242, 0.7);
+    position: absolute;
+    width: 145px;
+    padding: 10px 20px 10px 20px;
+    margin-top: 30px;
+    margin-left: 1020px;
+}
+div#credits p:first-child {
+    font-size: small;
+}
+div#credits p:last-child {
+    font-size: small;
+    text-align: center;
+    padding-top: 5px;
+}
+div#credits a img {
+    height: 83px;
+    float: left;
+    padding-right: 5px;
+    margin-left: -5px;
+}
+div#credits a {
+    text-decoration: none;
+    font-family: 'Bebas';
+    color: #325573;
+    word-spacing: 3px;
+    font-size: normal;
+}
+div#credits a:hover {
+    color: #991523;
+};
+div#credits a#githublink {
+    display: block;
 }

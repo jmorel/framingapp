@@ -1,0 +1,18 @@
+section#warning {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 1000000;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,0.95);
+	color: #f2f2f2;
+	padding-left: 100px;
+	padding-top: 70px;
+	display: none;
+}
+
+section#warning h1 {
+	font-family: 'Bebas';
+    font-size: 50pt;
+}

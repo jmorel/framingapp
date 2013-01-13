@@ -3,7 +3,7 @@ section#menu {
     top: 0px;
     right: -110px;
     width: 48px;
-    padding: 40px 26px 0px 26px;
+    padding: 30px 26px 0px 26px;
     height: 100%;
     background: RGBa(242, 242, 242, 0.7);
     z-index: 1000;
@@ -26,14 +26,14 @@ section#menu ul:first-child>li {
 }
 
 section#menu ul:first-child>li#settings_button {
-    margin-bottom: 60px;
+    margin-bottom: 40px;
 }
 section#menu ul:first-child>li#state>img {
     width: 20px;
 }
 
 section#menu ul:first-child>li:last-child {
-    margin-top: 60px;
+    margin-top: 40px;
 }
 
 canvas#can {

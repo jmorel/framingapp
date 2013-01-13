@@ -6,11 +6,15 @@
     
     <link rel="stylesheet" type="text/css" href="css/general.css">
     <link rel="stylesheet" type="text/css" href="css/fonts.css"> 
+    <link rel="stylesheet" type="text/css" href="css/warning.css">
     <link rel="stylesheet" type="text/css" href="css/home.css">
     <link rel="stylesheet" type="text/css" href="css/settings.css">
     <link rel="stylesheet" type="text/css" href="css/settings col1.css">
     <link rel="stylesheet" type="text/css" href="css/settings col2.css">
     <link rel="stylesheet" type="text/css" href="css/menu.css">
+
+    <!-- analytics -->
+    <script type="text/javascript" src="js/analytics.js"></script>
     
     <!-- tool set -->
     <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
@@ -46,6 +50,13 @@
 
 <body>
 
+<section id="warning">
+    <h1>Oops</h1>
+    <p>In order to take advantage of framing app, you need to have a resolution of at least 1280x768px</p>
+    <p>You'll also need to use a browser supporting the HTML5 FileSystem & FileWriter API.<br>
+        In plain english: Google Chrome (at least version 8.0) </p>
+</section>
+
 <section id="home">
 
     <img src="pix/thescream.png" id="thescream"/>
@@ -53,7 +64,22 @@
     <h1>Framing App</h1>
     <h2>LARGE PRINTS FOR THE MASSES</h2>
 
-    <!-- <iframe id="video" src="http://www.youtube.com/embed/vMwu_lNB84Y" frameborder="0" allowfullscreen></iframe> -->
+    <div id="credits">
+        <p>Framing app is an open source project</p>
+        
+        <p><a href="https://github.com/jmorel/framingapp" id="githublink">
+            <img src="pix/octocat.png" alt="github octocat">
+            Check<br>
+            it out<br> 
+            on<br>
+            GitHub!
+        </a></p>
+
+        <p>(c) 2012 <a href="mailto:morel.jeremy@gmail.com">Jeremy Morel</a></p>
+
+    </div>
+
+    <iframe id="video" src="http://www.youtube.com/embed/vMwu_lNB84Y" frameborder="0" allowfullscreen></iframe>
     
     <div id="start">
         <div id="startarrow"></div>    

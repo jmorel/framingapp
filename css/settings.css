@@ -1,7 +1,7 @@
 section#settings {
     position: absolute;
     top: 0px;
-    left: 0; -980px;
+    left: -980px;
     height: 100%;
     width: 800px;
     background: #325573;    
@@ -9,7 +9,7 @@ section#settings {
     z-index: 1000;
 }
 
-h1 {
+section#settings h1 {
     font-family: 'Bebas';
     font-size: 50pt;
     color: #FFFFFF;

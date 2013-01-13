@@ -220,7 +220,7 @@ function setupPictureUpload() {
 }
 
 function resizeSettings() {
-    $('div#allFrameFormats').height($('body').height() - 270 + 'px');
+    $('div#allFrameFormats').height($('body').height() - 270 - 50 + 'px');
 }
 
 function setupSettingsPanel() {
