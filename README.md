@@ -1,45 +1,25 @@
 # Framing app
 
-I never found a good way of explaining what this app is for. Instead, have a look at this picture.
-TODO: include picture of finished result.
+TODO: include here youtube video
 
-Stil don't get it ? Watch [youtube.com](this video)
+Framing App allows you to print large images by cutting them into small pieces printable onto standard office equipment (A5, A3 or A3 for example). 
 
-## Code architecture.
+But whereas most solution only offer a regular tiling solution, Framing App asks you to chose how you want to map your image with the paper sheets and allows you to do so freely. You then just have to assemble the pieces together.
 
-## The coordinate system
+Do not cut out the white borders though! Think of them as frames through which your picture will show itself. You can set up the frame borders to be as thick or tiny as you want (check what your printer can do first), use it to hightlight the most important parts of your picture !
 
-Both picture and frame elements have 3 systems of coordinates:
+# Forking and running the app
 
-* millimeters `.mm`
-* pixels for display `.disp`
-* pixels for print `.print`
+## Third part resources
 
-Out of these 3 systems, there is one reference, the millimeters and the 2 others are just infered from its value.
+Framing App uses 3 fonts, all of them available freely on Font Squirrel (see below)
+* Bebas - http://www.fontsquirrel.com/fonts/Bebas
+* Megalopolis Extra - http://www.fontsquirrel.com/fonts/MEgalopolis-Extra
+* Nobile - http://www.fontsquirrel.com/fonts/Nobile
+These fonts cannot all be redistributed freely, download them to fonts/ and adjust css/fonts.css to point to the right files to get the website working.
 
-The need for both millimeters and display pixels is quite obvious. The need for print pixels comes from the requirements of the BytescoutPDF API. They cannot be the same because the mm to disp ratio depends on the zoom level and actual image resolution defined in the settings panel while the mm to print ratio depends on the printing resolution acceptable.
+## Running the app locally
 
-Basically,
-* For `.disp`: `dim [px] = dim [mm] * screen scale [px/mm] * zoom [coeff]`
-* For `.print`: `dim [px] = dim [mm] * pdf resolution [px/mm]`  
-  NB: usually, `pdf resolution = 72 dpi`
+You'll have to run Chrome (the FileSystem isn't supported yet by other filesystems) with the flags `--unlimited-quota-for-files` and `--allow-file-access-from-files`
 
-### FrameFormat
-
-frameformats
-frameFormatID
-
-### Frame
-
-Class Frame:
-
-Array frames
-position in frames indicates the stack level: 0 =  bottom, length-1 = top
-frameID id of the last frame created.
-
-### Vocable
-
-* sheetSize: A4, A5, etc...
-* format: an instance of the FrameFormat
-*
-
+# Code architecture
