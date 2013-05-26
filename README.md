@@ -18,6 +18,8 @@ Framing App uses 3 fonts, all of them available freely on Font Squirrel (see bel
 * Nobile - http://www.fontsquirrel.com/fonts/Nobile
 These fonts cannot all be redistributed freely, download them to fonts/ and adjust css/fonts.css to point to the right files to get the website working.
 
+You may also want to update the analytics.js file to track your own site use.
+
 ## Running the app locally
 
 You'll have to run Chrome (the FileSystem isn't supported yet by other filesystems) with the flags `--unlimited-quota-for-files` and `--allow-file-access-from-files`
