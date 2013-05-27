@@ -53,7 +53,7 @@ function newFrameFormat() {
 	var marginleft = document.getElementById('newFF_marginleft').value;
 	var marginright = document.getElementById('newFF_marginright').value;
 	// check values
-	if( !(name && sheetsize && margintop && marginbottom && marginleft && marginright)) { alert('Please input values for all 6 parameters.'); return; }
+	if( !(name && sheetsize && margintop && marginbottom && marginleft && marginright)) { alert('Please input values for all 6 parameters.'); return false; }
 	// new FrameFormat object
 	format = new FrameFormat;
 	format.name = name;
@@ -246,16 +246,16 @@ function setupSettingsPanel() {
 
     // Change color of the cross
     $('img#delFF')
-        .live('mouseenter', function() {$(this).attr('src','pix/cross-red.png');})
-        .live('mouseleave', function() {$(this).attr('src','pix/cross.png');});
+        .on('mouseenter', function() {$(this).attr('src','pix/cross-red.png');})
+        .on('mouseleave', function() {$(this).attr('src','pix/cross.png');});
 
 	// Click on the delete button deletes the frameFormat
-	$('img#delFF').live('click', function() {
+	$('img#delFF').on('click', function() {
         deleteFrameFormat($(this).attr('ffID'));
     });
     
     // Modifying any field of an already existing frameFormat updates it
-    $('div#allFrameFormats input, div#allFrameFormats select').live('change', function() { 
+    $('div#allFrameFormats input, div#allFrameFormats select').on('change', function() { 
         updateFrameFormat($(this).attr('ffID')); 
     })
 
@@ -457,7 +457,6 @@ function saveState() {
     }
     
     // build text file and offer to download
-    var bb = new BlobBuilder;
-    bb.append(JSON.stringify(state));
-    saveAs(bb.getBlob("text/plain;charset=utf-8"), "framingappstate");
+    var blob = new Blob([JSON.stringify(state)], {type: "text/plain;charset=utf-8"});
+    saveAs(blob, "framingappstate.txt");
 }

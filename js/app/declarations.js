@@ -156,7 +156,7 @@ function setupActions() {
     });
     
     // add new frame
-    $('ul#newFrame > li').live('click', function() { addNewFrame($(this).attr('id')); });
+    $('ul#newFrame > li').on('click', function() { addNewFrame($(this).attr('id')); });
     
     // show and hide format lists
     var config = {
