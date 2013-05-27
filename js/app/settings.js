@@ -348,6 +348,7 @@ function setupRestoreState() {
 }
 
 function updateAppState(state) {
+    console.log(state);
 
     // update picture properties
     $('input#widthMM').val(state.picture.width.mm).change();
@@ -392,7 +393,7 @@ function updateAppState(state) {
         f.updatePXdim();
         frames.push(f);
     }
-    frameID = data.frameID;
+    frameID = state.frameID;
 
     refresh();
 }
