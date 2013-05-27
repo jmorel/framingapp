@@ -51,11 +51,14 @@ function populatePDFlinks() {
     $('div#pdflinks ul').html(html);
 
     // connect the newly created links to the pdf generation
-    $('div#pdflinks ul li a').live('click', function() {
+    $(document).on('click', 'div#pdflinks ul li a', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log(this);
         var frameIDs = $(this).attr('frameIDs').split(',');
         var sheetSize = $(this).attr('sheetSize');
         generatePDF(sheetSize, frameIDs);
-        return false; // do not follow link
+        //return false; // do not follow link
     });
 }
 
@@ -63,28 +66,22 @@ function populatePDFlinks() {
 
  
 function generatePDF(sheetSize, frameIDs) {
-    
-    // new pdf
-    var pdf = new BytescoutPDF();
 
-    // set page size for this pdf
+    console.log('GENERATE PDF: '+sheetSize+ " "+frameIDs.toString());
+    
+    // the following are the only formats supported by jspdf
     var mapping = {
-        'A0': BytescoutPDF.A0, 
-        'A1': BytescoutPDF.A1, 
-        'A2': BytescoutPDF.A2,
-        'A3': BytescoutPDF.A3, 
-        'A4': BytescoutPDF.A4, 
-        'A5': BytescoutPDF.A5, 
-        'A6': BytescoutPDF.A6, 
-        'A7': BytescoutPDF.A7, 
-        'Letter': BytescoutPDF.Letter, 
-        'Legal': BytescoutPDF.Legal, 
-        'Executive': BytescoutPDF.Executive, 
-        'JisB5': BytescoutPDF.JisB5
+        'A3': 'a3', 
+        'A4': 'a4', 
+        'A5': 'a5', 
+        'Letter': 'letter', 
+        'Legal': 'legal', 
     }
-    pdf.pageSetSize(mapping[sheetSize]);
-    // set page orientation
-    pdf.pageSetOrientation(BytescoutPDF.PORTRAIT);
+
+    // new pdf
+    // jsPDF(orientation, unit, format)
+    var pdf = new jsPDF('p', 'mm', mapping[sheetSize]);
+
 
     for(var j=0; j<frameIDs.length; j++) {
         var id = frameIDs[j];
@@ -93,18 +90,14 @@ function generatePDF(sheetSize, frameIDs) {
         for(var i=0; i<frames.length; i++) { if(frames[i].id == id) {frame = frames[i]; framePos=i;}}
         if(!frame) {return false;} // break
 
-        pdf.pageAdd();
+        // a page is automatically created when the pdf object is instanciated
+        // we only have to manualy create pages for subsequent item
+        if( j > 0 ) { pdf.addPage() };
 
-        // calculate page resolution
-        // this will define the how we should stretch or squeeze the image before printing.
-        /* Beware this BytescoutPDF.A4 only works for 72dpi
-        For custom resolution, it'd better to use:
-        pdf.pageSetWidth(8.25); // 8.25 inches = 21 cm
-        pdf.pageSetHeight(13.25); // 13.25 inches = 29.7 cm
-        */
-        var pageRes = 72 / 25.4; // this should be changed whenever possible
-
-        
+        // since jsPDF cannot accomodate various orientation within the same file, we'll have to:
+        // * rotate the canvas
+        // * place it differently on the page
+        var isLandscape = (frame.width.mm > frame.height.mm);
         
         // corresponding image area
         var source = {
@@ -120,13 +113,21 @@ function generatePDF(sheetSize, frameIDs) {
             'width': frame.width.mm - frame.margin.left.mm - frame.margin.right.mm,
             'height': frame.height.mm - frame.margin.top.mm - frame.margin.bottom.mm
         };
+        if(isLandscape) {
+            dest = {
+                'x': frame.margin.bottom.mm,
+                'y': frame.margin.left.mm,
+                'width': frame.height.mm - frame.margin.top.mm - frame.margin.bottom.mm,
+                'height': frame.width.mm - frame.margin.left.mm - frame.margin.right.mm
+            };
+        }
 
         // check for boundaries issues
 
         // worst case: the frame doesn't clip any part of the picture
         if( source.x + source.dx < 0 ||
             source.x > picture.width.mm ||
-            source.y + source.dy <0 ||
+            source.y + source.dy < 0 ||
             source.y > picture.height.mm) {
                 // don't do anything with this frame, let's just skip it
                 continue;
@@ -153,16 +154,6 @@ function generatePDF(sheetSize, frameIDs) {
             source.dy = picture.height.mm - source.y;
             dest.height = picture.height.mm - source.y;
         }
-        
-        // do the rotation now that we are still working in mm
-        var isLandscape = (frame.width.mm > frame.height.mm);
-        var angle = 0;
-        if(isLandscape) {
-            angle = -90;
-            xtemp = dest.x;
-            dest.x = frame.height.mm - dest.y - dest.height;
-            dest.y = xtemp - dest.height;
-        }
 
         // convert all to print pixels
         var widthRes = picture.img.width / picture.width.mm;
@@ -173,16 +164,19 @@ function generatePDF(sheetSize, frameIDs) {
         source.dx = source.dx * widthRes;
         source.dy = source.dy * heightRes;
 
-        dest.x = dest.x * pageRes;
-        dest.y = dest.y * pageRes;
-        dest.width = dest.width * pageRes;
-        dest.height = dest.height * pageRes;
-
         // create temporary canvas element
         var tempCanvas = document.createElement('canvas');
         tempCanvas.width = source.dx;
         tempCanvas.height = source.dy;
         var tempContext = tempCanvas.getContext('2d');
+
+        // rotate canvas & context if necessary
+        if(isLandscape) {
+            tempCanvas.width = source.dy;
+            tempCanvas.height = source.dx;
+            tempContext.rotate(Math.PI / 2);
+            tempContext.translate(0, -tempCanvas.width);
+        } 
 
         // draw into canvas
         tempContext.drawImage(
@@ -196,40 +190,39 @@ function generatePDF(sheetSize, frameIDs) {
             f = frames[i];
             // skip if the main frame is seethrough and the temp frame is under it.
             if(frame.seethrough && framePos>i) { continue; }
+            // skip if this is the same frame
+            if(frame.id == f.id) { continue; }
+
             tempContext.fillRect( // top
-                (f.x.mm - frame.x.mm) * widthRes, 
-                (f.y.mm - frame.y.mm) * heightRes,
+                (f.x.mm - frame.x.mm - frame.margin.left.mm) * widthRes, 
+                (f.y.mm - frame.y.mm - frame.margin.top.mm) * heightRes,
                 f.width.mm * widthRes,
                 f.margin.top.mm * heightRes);
             tempContext.fillRect( // bottom
-                (f.x.mm - frame.x.mm) * widthRes, 
-                (f.y.mm + f.height.mm - f.margin.bottom.mm - frame.y.mm) * heightRes,
+                (f.x.mm - frame.x.mm - frame.margin.left.mm) * widthRes, 
+                (f.y.mm + f.height.mm - f.margin.bottom.mm - frame.y.mm - frame.margin.top.mm) * heightRes,
                 f.width.mm * widthRes,
                 f.margin.bottom.mm * heightRes);
             tempContext.fillRect( // left
-                (f.x.mm - frame.x.mm) * widthRes, 
-                (f.y.mm - frame.y.mm) * heightRes,
+                (f.x.mm - frame.x.mm - frame.margin.left.mm) * widthRes, 
+                (f.y.mm - frame.y.mm - frame.margin.top.mm) * heightRes,
                 f.margin.left.mm * widthRes,
                 f.height.mm * heightRes);
             tempContext.fillRect( // right
-                (f.x.mm + f.width.mm - f.margin.right.mm - frame.x.mm) * widthRes, 
-                (f.y.mm - frame.y.mm) * heightRes,
+                (f.x.mm + f.width.mm - f.margin.right.mm - frame.x.mm - frame.margin.left.mm) * widthRes, 
+                (f.y.mm - frame.y.mm - frame.margin.top.mm) * heightRes,
                 f.margin.right.mm * widthRes,
                 f.height.mm * heightRes);
         }
         
         // load canvas into PDF
-        pdf.imageLoadFromCanvas(tempCanvas);
-        // we have to be attentive of whether this is a portrait (standard) or landscape frame
-        /*if(frame.width.px > frame.height.px) { pdf.pageSetOrientation(BytescoutPDF.LANDSCAPE); console.log('landscape');}*/
-        
-        pdf.imagePlaceSetSize(
-            dest.x, dest.y, // position
-            angle, // rotation
+        pdf.addImage(
+            tempCanvas.toDataURL('image/jpeg'),
+            'JPEG',
+            dest.x, dest.y,
             dest.width, dest.height);
 }
 
     // open in new window the generated pdf
-    var pdfBase64 = pdf.getBase64Text();
-    window.open('data:application/pdf;base64,' + pdfBase64, '_blank');
+    pdf.save(sheetSize+".pdf");
 }

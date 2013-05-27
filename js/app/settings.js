@@ -25,10 +25,10 @@ function updateFrameFormat(id) {
 	frameformat.sheet = size
 	frameformat.width = sheet_sizes[size].width;
 	frameformat.height = sheet_sizes[size].height;
-	frameformat.margin.top = $('input[ffID="'+id+'"][name="margintop"]').val();
-	frameformat.margin.bottom = $('input[ffID="'+id+'"][name="marginbottom"]').val();
-	frameformat.margin.left = $('input[ffID="'+id+'"][name="marginleft"]').val();
-	frameformat.margin.right = $('input[ffID="'+id+'"][name="marginright"]').val();
+	frameformat.margin.top = parseInt($('input[ffID="'+id+'"][name="margintop"]').val());
+	frameformat.margin.bottom = parseInt($('input[ffID="'+id+'"][name="marginbottom"]').val());
+	frameformat.margin.left = parseInt($('input[ffID="'+id+'"][name="marginleft"]').val());
+	frameformat.margin.right = parseInt($('input[ffID="'+id+'"][name="marginright"]').val());
 	
 	// update entries in the menu
 	$('ul#newFrame').html(frameList4Menu());
@@ -48,10 +48,10 @@ function newFrameFormat() {
 	var name = document.getElementById('newFF_name').value;
 	var sheetsize_elt = document.getElementById('newFF_sheetsize');
 	var sheetsize = sheetsize_elt.options[sheetsize_elt.selectedIndex].value;
-	var margintop = document.getElementById('newFF_margintop').value;
-	var marginbottom = document.getElementById('newFF_marginbottom').value;
-	var marginleft = document.getElementById('newFF_marginleft').value;
-	var marginright = document.getElementById('newFF_marginright').value;
+	var margintop = parseInt(document.getElementById('newFF_margintop').value);
+	var marginbottom = parseInt(document.getElementById('newFF_marginbottom').value);
+	var marginleft = parseInt(document.getElementById('newFF_marginleft').value);
+	var marginright = parseInt(document.getElementById('newFF_marginright').value);
 	// check values
 	if( !(name && sheetsize && margintop && marginbottom && marginleft && marginright)) { alert('Please input values for all 6 parameters.'); return false; }
 	// new FrameFormat object
@@ -348,8 +348,6 @@ function setupRestoreState() {
 }
 
 function updateAppState(state) {
-    console.log(state);
-
     // update picture properties
     $('input#widthMM').val(state.picture.width.mm).change();
     $('input#heightMM').val(state.picture.height.mm).change();
