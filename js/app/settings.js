@@ -245,19 +245,16 @@ function setupSettingsPanel() {
 	$('form').submit(newFrameFormat);
 
     // Change color of the cross
-    $('img#delFF')
-        .on('mouseenter', function() {$(this).attr('src','pix/cross-red.png');})
-        .on('mouseleave', function() {$(this).attr('src','pix/cross.png');});
+    $(document)
+        .on('mouseenter', 'img#delFF', function() {$(this).attr('src','pix/cross-red.png');})
+        .on('mouseleave', 'img#delFF', function() {$(this).attr('src','pix/cross.png');});
 
 	// Click on the delete button deletes the frameFormat
-	$('img#delFF').on('click', function() {
-        deleteFrameFormat($(this).attr('ffID'));
-    });
+    $(document).on('click', 'img#delFF', function() {deleteFrameFormat($(this).attr('ffID'));});
     
     // Modifying any field of an already existing frameFormat updates it
-    $('div#allFrameFormats input, div#allFrameFormats select').on('change', function() { 
-        updateFrameFormat($(this).attr('ffID')); 
-    })
+    $(document).on('change', 'div#allFrameFormats input, div#allFrameFormats select', 
+        function() {updateFrameFormat($(this).attr('ffID'));});
 
     // default values
 	$('input#screenwidth').val(screen.width);
