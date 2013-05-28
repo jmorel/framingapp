@@ -12,39 +12,27 @@ function populatePDFlinks() {
             sheetSizesUsed.push(frames[i].sheet);
         }
     }
-    // retrieve frames ID that will be included in each single 10-page pdfs.
-    // the structure of pdflinks will be of the kind
-    // pdflinks = {'A4': [ [1,2,3,4,5,6,7,8,9,10], [11, 12, 13]}
+    // retrieve frames ID that will be included in each pdf
+    // one pdf per sheet size
     var pdflinks = {};
     for(var i=0; i<sheetSizesUsed.length; i++) {
         var sheetSize = sheetSizesUsed[i];
         pdflinks[sheetSize] = new Array();
-        var c = 0;
-        var pdfIDs = new Array();
         for(var j=0; j<frames.length; j++) {
             var frame = frames[j];
             if(frame.sheet == sheetSize) { 
-                pdfIDs.push(frame.id); 
-                c = c+1;
-                if(c == MAX_PAGES_PER_PDF) { 
-                    pdflinks[sheetSize].push(pdfIDs);
-                    pdfIDs = new Array();
-                    c = 0;
-                }
+                pdflinks[sheetSize].push(frame.id);
             }
         }
-        if(c != 0) {pdflinks[sheetSize].push(pdfIDs);}
     }
     
     // generate the pdf links from this data
     var html = '';
     for(var i=0; i<sheetSizesUsed.length; i++) {
         var sheetSize = sheetSizesUsed[i];
-        if(pdflinks[sheetSize].length == 0) {continue;} // this should not be necessary !
+        if(pdflinks[sheetSize].length == 0) {continue;}
         html = html + '<li><span class="sheetSize">' + sheetSize + '</span>';
-        for(var j=0; j<pdflinks[sheetSize].length; j++) {
-            html = html + '<a href="" frameids="'+ pdflinks[sheetSize][j] + '" sheetSize="' + sheetSize +'">#' + (j+1) + '</a> ';
-        }
+        html = html + '<a href="" frameids="'+ pdflinks[sheetSize] + '" sheetSize="' + sheetSize +'">download pdf</a> ';
         html = html + '</li>';
     }
     if(html == '') { html = '<p>nothing yet</p>'; }

@@ -1,5 +1,3 @@
-var MAX_PAGES_PER_PDF = 10;
-
 var scale = {
     'mm2px': 0, // in px per mm
     'px2mm': 0, // in mm per px

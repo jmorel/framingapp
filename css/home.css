@@ -1,7 +1,7 @@
 section#home {
     position: absolute;
-    top: 0px;
-    left: 0px;
+    top: 0;
+    left: 0;
     width: 100%;
     
     z-index: 1000;
@@ -45,7 +45,7 @@ section#home div#starttext {
     top: 420px;
     background-color: #991523;
     color: #F2F2F2;
-    padding: 10px 10px 0px 10px;
+    padding: 10px 10px 0 10px;
 }
 section#home div#startarrow {
     position: absolute;
@@ -53,9 +53,9 @@ section#home div#startarrow {
     top: 565px;
     border-color: #991523 transparent transparent transparent ;
     border-style:solid;
-    border-width:50px 75px 0px 75px;
-    height: 0px;
-    width: 0px;
+    border-width:50px 75px 0 75px;
+    height: 0;
+    width: 0;
 }
 
 section#home div#start:hover {
@@ -93,7 +93,7 @@ div#credits a {
 }
 div#credits a:hover {
     color: #991523;
-};
+}
 div#credits a#githublink {
     display: block;
 }

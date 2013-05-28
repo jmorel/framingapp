@@ -22,6 +22,4 @@ You may also want to update the analytics.js file to track your own site use.
 
 ## Running the app locally
 
-You'll have to run Chrome (the FileSystem isn't supported yet by other filesystems) with the flags `--unlimited-quota-for-files` and `--allow-file-access-from-files`
-
-# Code architecture
+You'll have to run Chrome (the HTML5 FileSystem API isn't supported yet by other browser) with the flags `--unlimited-quota-for-files` and `--allow-file-access-from-files`

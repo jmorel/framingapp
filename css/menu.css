@@ -134,6 +134,7 @@ div#pdflinks ul span.sheetSize {
 div#pdflinks ul a {
     color: #FFFFFF;
     text-decoration: none;
+    font-size: small;
 }
 div#pdflinks ul a:hover {
     color: #FFFFFF;
