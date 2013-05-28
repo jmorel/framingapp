@@ -9,6 +9,7 @@ js/jquery.hoverIntent.minified.js
 js/jquery.mousewheel.js
 js/analytics.js
 testing/
+*.lnk
 
 #################
 ## Eclipse
