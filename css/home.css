@@ -58,7 +58,7 @@ section#home div#startarrow {
     width: 0;
 }
 
-section#home div#start:hover {
+section#home div#start {
     cursor: pointer;
 }
 
