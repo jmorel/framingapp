@@ -123,13 +123,15 @@
                 </div>
                 
                 <div id="realsize">
-                    <b>Real life size</b> <i>(in mm)</i><br>
-                    <input type="number" placeholder="width" id="widthMM"> &times; <input type="number" placeholder="height" id="heightMM">
+                    <b>Print size</b> <i>(in mm)</i><br>
+                    <input type="number" placeholder="width" id="widthMM"> &times; <input type="number" placeholder="height" id="heightMM"> 
+                    <img id="lockratio" alt="lock print size ratio" title="Lock print size ratio" src="pix/link-red.png">
                 </div>
                 
                 <div id="screen">
-                    <b>Screen resolution</b> <i>(in px)</i>&nbsp;&nbsp;&nbsp;&nbsp; <input type="number" placeholder="width" id="screenwidth"> &times; <input type="number" placeholder="height" id="screenheight"><br>
-                    <b>Screen size</b> <i>(in inches)</i>&nbsp;&nbsp;&nbsp;&nbsp; <input type="number" placeholder="diagonal" id="screendiagonal">
+                    <p><b>Your screen resolution</b> <i>(in px, autodetected)</i><br>
+                    <input type="number" placeholder="width" id="screenwidth"> &times; <input type="number" placeholder="height" id="screenheight"></p>
+                    <p><b>Your screen size</b> <i>(in inches)</i>&nbsp;&nbsp;&nbsp;&nbsp; <input type="number" placeholder="diagonal" id="screendiagonal"></p>
                 </div>
                 
             </div>
@@ -188,18 +190,19 @@
 
 <section id="menu">
     <ul>
-        <li id="settings_button"><img src="pix/settings.png" alt="settings" id="settings_button"></li>
-        <li><img src="pix/add.png" alt="add" id="add_button"></li>
-        <li><img src="pix/trash.png" alt="delete" id="delete_button"></li>
-        <li><img src="pix/rotate.png" alt="rotate" id="rotate_button"></li>
-        <li><img src="pix/forward.png" alt="move up" id="moveup_button"></li>
-        <li><img src="pix/backward.png" alt="move down" id="movedown_button"></li>
-        <li><img src="pix/seethrough-on.png" alt="switch see through status" id="toggleseethrough_button"></li>
-        <li><img src="pix/scissors.png" alt="cut" id="cut_button"></li>
+        <li id="settings_button"><img src="pix/settings.png" alt="settings" id="settings_button" title="Back to settings"></li>
+        <li><img src="pix/add.png" alt="add" id="add_button" title="Add new frame"></li>
+        <li><img src="pix/trash.png" alt="delete" id="delete_button" title="Delete frame"></li>
+        <li><img src="pix/rotate.png" alt="rotate" id="rotate_button" title="Rotate frame"></li>
+        <li><img src="pix/forward.png" alt="move up" id="moveup_button" title="Move frame upward"></li>
+        <li><img src="pix/backward.png" alt="move down" id="movedown_button" title="Move frame downwards"></li>
+        <li><img src="pix/seethrough-on.png" alt="switch see through status" id="toggleseethrough_button" title="Toggle see through property"></li>
+        <li><img src="pix/scissors.png" alt="cut" id="cut_button" title="Generate PDFs"></li>
     </ul>
     
     <ul id="newFrame">
         <p style="font-size:smaller;">No frame format defined yet.</p>
+        <p id="editFF">edit frame formats</p>
     </ul>
 
     <div id="pdflinks">
@@ -212,7 +215,7 @@
         </ul>
     </div>
     
-    <input type="range" id="zoom_lvl" value="20" min="0" max="30" step="1">
+    <input type="range" id="zoom_lvl" value="20" min="0" max="30" step="1" title="Adjust zoom level">
 
 </section>
 

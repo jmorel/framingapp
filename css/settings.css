@@ -1,6 +1,6 @@
 section#settings {
     position: absolute;
-    top: 0px;
+    top: 0;
     left: -980px;
     height: 100%;
     width: 800px;
@@ -74,7 +74,7 @@ input {
 	background-color: #F2F2F2;
 	padding: 4px 5px 3px 5px;
 	color: #325573;
-	font-family: 'Nobile';
+	font-family: 'NobileRegular';
 	font-size: smaller;
 }
 
@@ -106,4 +106,14 @@ div#go:hover {
     cursor: pointer;
     background: RGBa(242, 242, 242, 0.9);
     color: #991523;    
+}
+
+img#lockratio{
+    display: inline-block;
+    vertical-align: top; 
+    width: 15px; 
+    cursor: pointer; 
+    background-color: #F2F2F2; 
+    padding: 4px;
+    margin-left: px;
 }

@@ -102,6 +102,7 @@ function frameList4Menu() {
         if(format) { html = html + format.html4menu(); }
     }
     if(!html) { html = '<p style="font-size:smaller;">No frame format defined yet.</p>'; }
+    html = html + '<p id="editFF">edit frame formats</p>';
     return html;
 }
 
@@ -155,6 +156,10 @@ function setupPictureUpload() {
                             
                             // display general information
                             $('div#filedetails').html(file.name+'<br>'+img.width+'&times;'+img.height+'px<br>');
+                            // save basic size information to Picture object
+                            picture.width.px = img.width;
+                            picture.height.px = img.height;
+
 
                         }
                         // update thumbnail
@@ -240,7 +245,44 @@ function setupSettingsPanel() {
 	// Populate paper sizes list in the "new frame format form"
     $('select#newFF_sheetsize').html(sheetSizesOptions());
 
-	// Click on the "+" button actually creates the new frame format
+    // Margin value pasted to all other margins if they are empty
+    $(document).on('change', 'input#newFF_margintop', function() {
+        if(     !$('input#newFF_marginleft').val() 
+                && !$('input#newFF_marginright').val() 
+                && !$('input#newFF_marginbottom').val() )  {
+            $('input#newFF_marginleft').val($('input#newFF_margintop').val());
+            $('input#newFF_marginright').val($('input#newFF_margintop').val());
+            $('input#newFF_marginbottom').val($('input#newFF_margintop').val());
+        }
+    });
+    $(document).on('change', 'input#newFF_marginleft', function() {
+        if(     !$('input#newFF_margintop').val() 
+                && !$('input#newFF_marginright').val() 
+                && !$('input#newFF_marginbottom').val() )  {
+            $('input#newFF_margintop').val($('input#newFF_marginleft').val());
+            $('input#newFF_marginright').val($('input#newFF_marginleft').val());
+            $('input#newFF_marginbottom').val($('input#newFF_marginleft').val());
+        }
+    });
+    $(document).on('change', 'input#newFF_marginright', function() {
+        if(     !$('input#newFF_marginleft').val() 
+                && !$('input#newFF_margintop').val() 
+                && !$('input#newFF_marginbottom').val() )  {
+            $('input#newFF_marginleft').val($('input#newFF_marginright').val());
+            $('input#newFF_margintop').val($('input#newFF_marginright').val());
+            $('input#newFF_marginbottom').val($('input#newFF_marginright').val());
+        }
+    });
+    $(document).on('change', 'input#newFF_marginbottom', function() {
+        if(     !$('input#newFF_marginleft').val() 
+                && !$('input#newFF_marginright').val() 
+                && !$('input#newFF_margintop').val() )  {
+            $('input#newFF_marginleft').val($('input#newFF_marginbottom').val());
+            $('input#newFF_marginright').val($('input#newFF_marginbottom').val());
+            $('input#newFF_margintop').val($('input#newFF_marginbottom').val());
+        }
+    });
+	// Click on the "ADD" button actually creates the new frame format
 	$('div#addArrow').click(newFrameFormat);
 	$('form').submit(newFrameFormat);
 
@@ -262,12 +304,27 @@ function setupSettingsPanel() {
 	scale.screen.res.width = screen.width;
 	scale.screen.res.height = screen.height;
 
-    // Changes in real life size
+    // Changes in print size
     $('input#widthMM').change(function() {
         picture.setRealWidth($(this).val());
+        if(lockratio && picture.width.px != 0 && picture.height.px != 0) {
+            $('input#heightMM').val(Math.round(picture.height.px * $('input#widthMM').val() / picture.width.px ));
+        }
     });
     $('input#heightMM').change(function() {
         picture.setRealHeight($(this).val());
+        if(lockratio && picture.width.px != 0 && picture.height.px != 0) {
+            $('input#widthMM').val(Math.round(picture.width.px * $(this).val() / picture.height.px ));
+        }
+    });
+    $('img#lockratio').click(function() {
+        if(lockratio) {
+            $(this).attr('src', 'pix/link.png');
+            lockratio = false;
+        } else {
+            $(this).attr('src', 'pix/link-red.png');
+            lockratio = true;
+        }
     });
     
     // Changes in screen resolution
@@ -282,6 +339,24 @@ function setupSettingsPanel() {
     $('input#screendiagonal').change(function() {
         scale.screen.diagonal = $(this).val();        
     });
+
+    // add a default frame format
+    format = new FrameFormat;
+    format.name = name;
+    format.sheet = 'A4';
+    format.width = sheet_sizes[format.sheet].width;
+    format.height = sheet_sizes[format.sheet].height;
+    format.margin.top = 15;
+    format.margin.bottom = 15;
+    format.margin.left = 15;
+    format.margin.right = 15;
+    // add FrameFormat to the list
+    format.id = frameFormatsID;
+    frameFormats.push(format);
+    frameFormatsID++;
+    // display into settings and app menu
+    $('div#allFrameFormats').html(frameList4Settings());
+    $('ul#newFrame').html(frameList4Menu());
     
     $('div#go').click(function() {
 
@@ -348,9 +423,13 @@ function setupRestoreState() {
 }
 
 function updateAppState(state) {
+
     // update picture properties
     $('input#widthMM').val(state.picture.width.mm).change();
     $('input#heightMM').val(state.picture.height.mm).change();
+    lockratio = state.lockratio;
+    if(lockratio) {$('img#lockratio').attr('src', 'pix/link-red.png')}
+    else {$('img#lockratio').attr('src', 'pix/link.png')}
 
     // update frame formats
     frameFormats = new Array();
@@ -449,7 +528,8 @@ function saveState() {
         'frameFormatsID': frameFormatsID,
         'frameFormats': dataframeformats,
         'frameID': frameID,
-        'frames': dataframes
+        'frames': dataframes,
+        'lockratio': lockratio
     }
     
     // build text file and offer to download

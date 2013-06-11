@@ -36,6 +36,16 @@ section#menu ul:first-child>li:last-child {
     margin-top: 40px;
 }
 
+section#menu p#editFF {
+    font-size: x-small;
+    cursor: pointer;
+    text-align: center;
+    font-family: 'NobileBold';
+}
+section#menu p#editFF:hover {
+    text-decoration: underline;
+}
+
 canvas#can {
     position: absolute;
     top: 0px;

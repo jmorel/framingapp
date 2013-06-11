@@ -80,7 +80,8 @@ td.middle select {
     padding: 0px;    
     background-color: #325573;
     color: #F2F2F2;
-    font-family: 'NobileBold';
+    font-family: 'NobileRegular';
+    font-size: small;
     cursor: pointer;
 }
 td.caption {

@@ -16,22 +16,22 @@ var oldZoomSliderValue = 20;
 var zoomLVLs = new Array();
 
 var picture = new Picture();
-
+var lockratio = true;
 
 var frameID = 0;
 var frames = new Array();
 
 // standard (ISO) paper formats used in printers
 var sheet_sizes = {
-    '4A0': { 'width': 1682, 'height': 2378},
+    /*'4A0': { 'width': 1682, 'height': 2378},
     '2A0': { 'width': 1189, 'height': 1682},
     'A0': { 'width': 841, 'height': 1189},
     'A1': { 'width': 594, 'height': 841},
-    'A2': { 'width': 420, 'height': 594},
+    'A2': { 'width': 420, 'height': 594},*/
     'A3': { 'width': 297, 'height': 420},
     'A4': { 'width': 210, 'height': 297},
     'A5': { 'width': 148, 'height': 210},
-    'A6': { 'width': 105, 'height': 148},
+ /*   'A6': { 'width': 105, 'height': 148},
     
     
     '2B0': { 'width': 1414, 'height': 2000},
@@ -76,7 +76,10 @@ var sheet_sizes = {
     'C9': { 'width': 40, 'height': 57},
     'A10': { 'width': 26, 'height': 37},
     'B10': { 'width': 31, 'height': 44},
-    'C10': { 'width': 28, 'height': 40}
+    'C10': { 'width': 28, 'height': 40}*/
+
+    'Letter': {'width': 215.9, 'height': 279.4},
+    'Legal': {'width': 215.9, 'height': 355.6} 
 };
 
 var frameFormatsID = 0;
@@ -146,12 +149,13 @@ function setupActions() {
     });
     
     // settings
-    $('img#settings_button').click(function() {
+    $(document).on('click', 'img#settings_button, p#editFF', function() {
+        $('ul#newFrame').hide();
         $('section#menu').animate({right: '-110px'}, 'fast', function() {
             $('div#pdflinks').hide();
             $('section#settings').animate({left: '0px'}, 'slow');
         });
-    });
+    })
     
     // add new frame
     $(document).on('click', 'ul#newFrame > li', function() { addNewFrame($(this).attr('id')); });
