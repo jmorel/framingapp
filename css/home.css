@@ -20,11 +20,14 @@ section#home h1 {
     color: #FFFFFF;
     padding-left: 430px;
     padding-top: 150px;
+    font-weight: normal;
+
 }
 
 section#home h2 {
     font-family: 'MEgalopolisExtra';
     font-size: 20pt;
+    font-weight: normal;
     background: #FFFFFF;
     color: #325573;
     padding-left: 430px;

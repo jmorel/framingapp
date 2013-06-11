@@ -12,8 +12,9 @@ Do not cut out the white borders though! Think of them as frames through which y
 
 Framing App uses 3 fonts, all of them available freely on Font Squirrel (see below)
 * Bebas - http://www.fontsquirrel.com/fonts/Bebas
-* Megalopolis Extra - http://www.fontsquirrel.com/fonts/MEgalopolis-Extra
+* Megalopolis Extra - http://www.fontsquirrel.com/fonts/MEgalopolis-Extra (original source: http://www.smeltery.net/fonts/megalopolis-extra)
 * Nobile - http://www.fontsquirrel.com/fonts/Nobile
+
 These fonts cannot all be redistributed freely, download them to fonts/ and adjust css/fonts.css to point to the right files to get the website working.
 
 You may also want to update the analytics.js file to track your own website use.

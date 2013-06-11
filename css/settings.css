@@ -18,9 +18,8 @@ section#settings h1 {
 }
 
 table#save-restore {
-    font-family: 'Nobile';
+    font-family: 'NobileItalic';
     font-size: small;
-    font-style: italic;
     font-weight: normal;
     color: #FFFFFF;
     float: right;

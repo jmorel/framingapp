@@ -5,6 +5,9 @@
 framingapp.sublime-workspace
 fonts/*.ttf
 fonts/*.otf
+fonts/*.svg
+fonts/*.woff
+fonts/*.eot
 js/jquery.hoverIntent.minified.js
 js/jquery.mousewheel.js
 js/analytics.js
