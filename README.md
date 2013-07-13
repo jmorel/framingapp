@@ -1,5 +1,7 @@
 # Framing app
 
+www.framingapp.com
+
 Framing App allows you to print large images by cutting them into small pieces printable onto standard office equipment (A5, A3 or A3 for example). 
 
 But whereas most solution only offer a regular tiling solution, Framing App asks you to chose how you want to map your image with the paper sheets and allows you to do so freely. You then just have to assemble the pieces together.
