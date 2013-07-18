@@ -309,12 +309,14 @@ function setupSettingsPanel() {
         picture.setRealWidth($(this).val());
         if(lockratio && picture.width.px != 0 && picture.height.px != 0) {
             $('input#heightMM').val(Math.round(picture.height.px * $('input#widthMM').val() / picture.width.px ));
+            $('i#printres').html('i.e. <span>' + Math.round(25.4 * picture.width.px / picture.width.mm).toString() + '</span> dpi')
         }
     });
     $('input#heightMM').change(function() {
         picture.setRealHeight($(this).val());
         if(lockratio && picture.width.px != 0 && picture.height.px != 0) {
             $('input#widthMM').val(Math.round(picture.width.px * $(this).val() / picture.height.px ));
+            $('i#printres').html('i.e. <span">' + Math.round(25.4 * picture.height.px / picture.height.mm).toString() + '</span> dpi')
         }
     });
     $('img#lockratio').click(function() {
@@ -365,7 +367,7 @@ function setupSettingsPanel() {
         // do we have a picture ?
         if(!picture.img.src) {alert('You have to select a picture.'); return;}
         // do we have a size in mm ?
-        else if(!(picture.width.mm && picture.height.mm)) { alert('You need to input the actual dimensions of your picture.'); return;}
+        else if(!(picture.width.mm && picture.height.mm)) { alert('You need to input the print size for your picture.'); return;}
         // do we have a screen resolution ?
         else if(!(scale.screen.res.width && scale.screen.res.height)) {
         alert(scale.screen.res.width+'x'+scale.screen.res.height)

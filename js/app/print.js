@@ -42,7 +42,6 @@ function populatePDFlinks() {
     $(document).on('click', 'div#pdflinks ul li a', function(e) {
         e.preventDefault();
         e.stopPropagation();
-        console.log(this);
         var frameIDs = $(this).attr('frameIDs').split(',');
         var sheetSize = $(this).attr('sheetSize');
         generatePDF(sheetSize, frameIDs);
@@ -53,10 +52,7 @@ function populatePDFlinks() {
 
 
  
-function generatePDF(sheetSize, frameIDs) {
-
-    console.log('GENERATE PDF: '+sheetSize+ " "+frameIDs.toString());
-    
+function generatePDF(sheetSize, frameIDs) { 
     // the following are the only formats supported by jspdf
     var mapping = {
         'A3': 'a3', 
