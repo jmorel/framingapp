@@ -76,10 +76,10 @@ function Picture(img_src, width_mm, height_mm) {
         this.y = (scale.screen.res.height-this.height.px)/2;
     }
     
-    this.setRealWidth = function(widthMM) {
+    this.setPrintWidth = function(widthMM) {
         this.width.mm = widthMM;
     }
-    this.setRealHeight = function(heightMM) {
+    this.setPrintHeight = function(heightMM) {
         this.height.mm = heightMM;
     }
     

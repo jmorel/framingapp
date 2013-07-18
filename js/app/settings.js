@@ -306,17 +306,19 @@ function setupSettingsPanel() {
 
     // Changes in print size
     $('input#widthMM').change(function() {
-        picture.setRealWidth($(this).val());
+        picture.setPrintWidth($(this).val());
         if(lockratio && picture.width.px != 0 && picture.height.px != 0) {
             $('input#heightMM').val(Math.round(picture.height.px * $('input#widthMM').val() / picture.width.px ));
-            $('i#printres').html('i.e. <span>' + Math.round(25.4 * picture.width.px / picture.width.mm).toString() + '</span> dpi')
+            $('i#printres').html('i.e. <span>' + Math.round(25.4 * picture.width.px / picture.width.mm).toString() + '</span> dpi');
+            picture.setPrintHeight($('input#heightMM').val());
         }
     });
     $('input#heightMM').change(function() {
-        picture.setRealHeight($(this).val());
+        picture.setPrintHeight($(this).val());
         if(lockratio && picture.width.px != 0 && picture.height.px != 0) {
             $('input#widthMM').val(Math.round(picture.width.px * $(this).val() / picture.height.px ));
-            $('i#printres').html('i.e. <span">' + Math.round(25.4 * picture.height.px / picture.height.mm).toString() + '</span> dpi')
+            $('i#printres').html('i.e. <span">' + Math.round(25.4 * picture.height.px / picture.height.mm).toString() + '</span> dpi');
+            picture.setPrintWidth($('input#widthMM').val());
         }
     });
     $('img#lockratio').click(function() {
