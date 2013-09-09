@@ -14,11 +14,13 @@
     <link rel="stylesheet" type="text/css" href="css/settings col1.css">
     <link rel="stylesheet" type="text/css" href="css/settings col2.css">
     <link rel="stylesheet" type="text/css" href="css/menu.css">
+    <link rel="stylesheet" type="text/css" href="css/introjs.css">
 
     <!-- analytics -->
     <script type="text/javascript" src="js/analytics.js"></script>
     
     <!-- tool set -->
+    <script type="text/javascript" src="js/intro.js"></script>
     <script type="text/javascript" src="js/jquery-2.0.1.min.js"></script>
     <script type="text/javascript" src="js/jquery.hoverIntent.minified.js"></script>
     <script type="text/javascript" src="js/jquery.mousewheel.js"></script>
@@ -100,7 +102,7 @@
 <section id="settings">
     <div id="settings">
         <h1>
-            <table id="save-restore">
+            <table id="save-restore" data-introjs="step8">
                 <tr>
                     <td>save current<br>settings/state
                     <td><img src="pix/save.png" id="savestate" />
@@ -108,7 +110,7 @@
                     <td>restore saved<br>settings/state
                     <td><input type="file" id="stateinput">
             </table>
-            Settings
+            <span data-introjs="step1">Settings</span>
         </h1>
         
         <div id="col1">
@@ -116,20 +118,20 @@
             <div class="content">
                 
                 <input type="file" id="pictureinput">
-                <canvas id="thumbnail" width=120 height=120></canvas><br>
+                <canvas id="thumbnail" width=120 height=120 data-introjs="step2"></canvas><br>
                 <div id="thumbnailcaption">drop a file here<br>- or -<br>click to select</div>
                 
                 <div id="filedetails">
                 </div>
                 
-                <div id="realsize">
+                <div id="realsize" data-introjs="step3">
                     <b>Print size</b> <i>(in mm)</i><br>
                     <input type="number" placeholder="width" id="widthMM"> &times; <input type="number" placeholder="height" id="heightMM"> 
                     <img id="lockratio" alt="lock print size ratio" title="Lock print size ratio" src="pix/link-red.png"><br>
                     <i id="printres"></i>
                 </div>
                 
-                <div id="screen">
+                <div id="screen" data-introjs="step4">
                     <p><b>Your screen resolution</b> <i>(in px, autodetected)</i><br>
                     <input type="number" placeholder="width" id="screenwidth"> &times; <input type="number" placeholder="height" id="screenheight"></p>
                     <p><b>Your screen size</b> <i>(in inches)</i>&nbsp;&nbsp;&nbsp;&nbsp; <input type="number" placeholder="diagonal" id="screendiagonal"></p>
@@ -139,12 +141,12 @@
         </div>
         
         <div id="col2">
-            <h2>Frames</h2>
+            <h2 data-introjs="step5">Frames</h2>
 
             <p>Use the form below to set up and modify your frame formats.<br>
                 <i>NB: modification to current frame formats will not affect already created frames.</i></p>
 
-            <form method="get" style="float: left">
+            <form method="get" style="float: left" data-introjs="step6">
                 <table>
                     <tr>
                         <td class="top">
@@ -170,8 +172,8 @@
 				<div id="text">Add</div>
 			</div>
 		
-			<div id="allFrameFormats">
-                <p class="noFFyet">None defined yet</p>
+			<div id="allFrameFormats" data-introjs="step7">
+                <p class="noFFyet" >None defined yet</p>
             </div>
 
         </div>
@@ -180,7 +182,7 @@
 	<div id="go">
 	   <div>
         	<span style="font-size: 30pt;">all set?</span><br>
-        	GO!
+        	<span data-introjs="step9">GO!</span>
 	   </div>
 	</div>
 	
@@ -189,16 +191,16 @@
 
 <canvas id="can" width="100" height="100"></canvas>
 
-<section id="menu">
+<section id="menu" data-introjs="step10">
     <ul>
-        <li id="settings_button"><img src="pix/settings.png" alt="settings" id="settings_button" title="Back to settings"></li>
-        <li><img src="pix/add.png" alt="add" id="add_button" title="Add new frame"></li>
-        <li><img src="pix/trash.png" alt="delete" id="delete_button" title="Delete frame"></li>
-        <li><img src="pix/rotate.png" alt="rotate" id="rotate_button" title="Rotate frame"></li>
-        <li><img src="pix/forward.png" alt="move up" id="moveup_button" title="Move frame upward"></li>
-        <li><img src="pix/backward.png" alt="move down" id="movedown_button" title="Move frame downwards"></li>
-        <li><img src="pix/seethrough-on.png" alt="switch see through status" id="toggleseethrough_button" title="Toggle see through property"></li>
-        <li><img src="pix/scissors.png" alt="cut" id="cut_button" title="Generate PDFs"></li>
+        <li data-introjs="step11"><img src="pix/settings.png" alt="settings" id="settings_button" title="Back to settings"></li>
+        <li data-introjs="step12"><img src="pix/add.png" alt="add" id="add_button" title="Add new frame"></li>
+        <li data-introjs="step13"><img src="pix/trash.png" alt="delete" id="delete_button" title="Delete frame"></li>
+        <li data-introjs="step14"><img src="pix/rotate.png" alt="rotate" id="rotate_button" title="Rotate frame"></li>
+        <li data-introjs="step15"><img src="pix/forward.png" alt="move up" id="moveup_button" title="Move frame upward"></li>
+        <li data-introjs="step16"><img src="pix/backward.png" alt="move down" id="movedown_button" title="Move frame downwards"></li>
+        <li data-introjs="step17"><img src="pix/seethrough-on.png" alt="switch see through status" id="toggleseethrough_button" title="Toggle see through property"></li>
+        <li data-introjs="step18"><img src="pix/scissors.png" alt="cut" id="cut_button" title="Generate PDFs"></li>
     </ul>
     
     <ul id="newFrame">

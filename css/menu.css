@@ -2,39 +2,66 @@ section#menu {
     position: absolute;
     top: 0px;
     right: -110px;
-    width: 48px;
-    padding: 30px 26px 0px 26px;
+    /*right: 0;*/
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 110px;
     height: 100%;
     background: RGBa(242, 242, 242, 0.7);
     z-index: 1000;
+    text-align: center;
 }
 
 section#menu img {
-    width: 48px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 section#menu img:hover {
     cursor: pointer;
 }
 
+#settings_button {
+    margin-top: 35px;
+    margin-bottom: 35px;
+}
+
+#add_button,
+#delete_button,
+#rotate_button,
+#moveup_button,
+#movedown_button,
+#toggleseethrough_button {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+#cut_button {
+    margin-top: 35px;
+    margin-bottom: 35px;
+}
+
+
 section#menu ul {
     list-style: none;
+    padding-top: 25px;
 }
 
-section#menu ul:first-child>li {
+/*section#menu ul:first-child>li {
     margin-bottom: 15px;
-}
+}*/
 
-section#menu ul:first-child>li#settings_button {
+/*section#menu ul:first-child>li#settings_button {
     margin-bottom: 40px;
-}
-section#menu ul:first-child>li#state>img {
+}*/
+/*section#menu ul:first-child>li#state>img {
     width: 20px;
-}
+}*/
 
-section#menu ul:first-child>li:last-child {
+/*section#menu ul:first-child>li:last-child {
     margin-top: 40px;
-}
+}*/
 
 section#menu p#editFF {
     font-size: x-small;
@@ -56,7 +83,8 @@ canvas#can {
 input#zoom_lvl {
     -webkit-appearance:none;
     width: 100px;
-    margin-left: -26px;
+    /*margin-left: -21px;*/
+    margin: auto;
     padding: 0px;
     background: url('../pix/bgrange.png');
     background-position: center;
@@ -73,7 +101,7 @@ ul#newFrame {
     position: absolute;
     display: none;
     width: 100px;
-    right: 100px;    
+    right: 110px;    
     top: 147px;
     background: RGBa(242, 242, 242, 0.7);
     color: #325573;
