@@ -21,6 +21,8 @@ var lockratio = true;
 var frameID = 0;
 var frames = new Array();
 
+var showTutorial = true;
+
 // standard (ISO) paper formats used in printers
 var sheet_sizes = {
     /*'4A0': { 'width': 1682, 'height': 2378},

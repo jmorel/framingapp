@@ -385,58 +385,61 @@ function setupSettingsPanel() {
                 // Refresh app
                 init();
                 // Show introjs explanations
-                var intro = introJs();
-                intro.setOptions({
-                    steps: [
-                        {
-                            element: document.querySelector( '[data-introjs="step10"]' ),
-                            intro: "Well done! Now let's see what the app can do.<p>First of all, you have to know you can pan the picture dragging it around and zoom in and out using the mouse wheel.</p>",
-                            position: 'left'
-                        },
-                        {
-                            element: document.querySelector( '[data-introjs="step11"]' ),
-                            intro: "Click here to return to the settings menu: to edit a frame format, save your work etc...",
-                            position: 'left'
-                        },
-                        {
-                            element: document.querySelector( '[data-introjs="step12"]' ),
-                            intro: "This will add a new frame on your picture.",
-                            position: 'left'
-                        },
-                        {
-                            element: document.querySelector( '[data-introjs="step13"]' ),
-                            intro: "And this will delete the selected frame. Just click on a frame and to select it.",
-                            position: 'left'
-                        },
-                        {
-                            element: document.querySelector( '[data-introjs="step14"]' ),
-                            intro: "Rotate the selected frame by 90deg.",
-                            position: 'left'
+                if ( showTutorial ) {
+                    showTutorial = false;
+                    var intro = introJs();
+                    intro.setOptions({
+                        steps: [
+                            {
+                                element: document.querySelector( '[data-introjs="step10"]' ),
+                                intro: "Well done! Now let's see what the app can do.<p>First of all, you have to know you can pan the picture dragging it around and zoom in and out using the mouse wheel.</p>",
+                                position: 'left'
+                            },
+                            {
+                                element: document.querySelector( '[data-introjs="step11"]' ),
+                                intro: "Click here to return to the settings menu: to edit a frame format, save your work etc...",
+                                position: 'left'
+                            },
+                            {
+                                element: document.querySelector( '[data-introjs="step12"]' ),
+                                intro: "This will add a new frame on your picture.",
+                                position: 'left'
+                            },
+                            {
+                                element: document.querySelector( '[data-introjs="step13"]' ),
+                                intro: "And this will delete the selected frame. Just click on a frame and to select it.",
+                                position: 'left'
+                            },
+                            {
+                                element: document.querySelector( '[data-introjs="step14"]' ),
+                                intro: "Rotate the selected frame by 90deg.",
+                                position: 'left'
 
-                        },
-                        {
-                            element: document.querySelector( '[data-introjs="step15"]' ),
-                            intro: "This will move the selected frame upwards...",
-                            position: 'left'
-                        },
-                        {
-                            element: document.querySelector( '[data-introjs="step16"]' ),
-                            intro: "and this will move it downwards.",
-                            position: 'left'
-                        },
-                        {
-                            element: document.querySelector( '[data-introjs="step17"]' ),
-                            intro: "The position of the frame in the stack of frames is important because you have two ways of displaying a frame: show only the picture through it <b>or</b> show also the borders of all lower frames. Use this button to toggle between these two states.",
-                            position: 'left'
-                        },
-                        {
-                            element: document.querySelector( '[data-introjs="step18"]' ),
-                            intro: "When you're all done, click here to generate the PDFs containing the frames !",
-                            position: 'left'
-                        }
-                    ]
-                });
-                intro.start();
+                            },
+                            {
+                                element: document.querySelector( '[data-introjs="step15"]' ),
+                                intro: "This will move the selected frame upwards...",
+                                position: 'left'
+                            },
+                            {
+                                element: document.querySelector( '[data-introjs="step16"]' ),
+                                intro: "and this will move it downwards.",
+                                position: 'left'
+                            },
+                            {
+                                element: document.querySelector( '[data-introjs="step17"]' ),
+                                intro: "The position of the frame in the stack of frames is important because you have two ways of displaying a frame: show only the picture through it <b>or</b> show also the borders of all lower frames. Use this button to toggle between these two states.",
+                                position: 'left'
+                            },
+                            {
+                                element: document.querySelector( '[data-introjs="step18"]' ),
+                                intro: "When you're all done, click here to generate the PDFs containing the frames !",
+                                position: 'left'
+                            }
+                        ]
+                    });
+                    intro.start();
+                }
             });
         });
     });
