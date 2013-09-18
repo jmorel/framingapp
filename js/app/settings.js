@@ -300,28 +300,21 @@ function setupSettingsPanel() {
 
     // Changes in print size
     $('input#widthMM').change(function() {
-        picture.setPrintWidth($(this).val());
-        if(lockratio && picture.width.px != 0 && picture.height.px != 0) {
-            $('input#heightMM').val(Math.round(picture.height.px * $('input#widthMM').val() / picture.width.px ));
+        picture.setPrintWidth( $(this).val() );
+        if ( picture.width.px != 0 && picture.height.px != 0 ) {
+            var ratio = $('input#widthMM').val() / picture.width.px;
+            $('input#heightMM').val(Math.round(picture.height.px * ratio ));
             $('i#printres').html('i.e. <span>' + Math.round(25.4 * picture.width.px / picture.width.mm).toString() + '</span> dpi');
-            picture.setPrintHeight($('input#heightMM').val());
+            picture.setPrintHeight( $('input#heightMM').val() );
         }
     });
     $('input#heightMM').change(function() {
         picture.setPrintHeight($(this).val());
-        if(lockratio && picture.width.px != 0 && picture.height.px != 0) {
-            $('input#widthMM').val(Math.round(picture.width.px * $(this).val() / picture.height.px ));
+        if ( picture.width.px != 0 && picture.height.px != 0 ) {
+            var ratio = $('input#heightMM').val() / picture.height.px;
+            $('input#widthMM').val( Math.round( picture.width.px * ratio ) );
             $('i#printres').html('i.e. <span">' + Math.round(25.4 * picture.height.px / picture.height.mm).toString() + '</span> dpi');
             picture.setPrintWidth($('input#widthMM').val());
-        }
-    });
-    $('img#lockratio').click(function() {
-        if(lockratio) {
-            $(this).attr('src', 'pix/link.png');
-            lockratio = false;
-        } else {
-            $(this).attr('src', 'pix/link-red.png');
-            lockratio = true;
         }
     });
 
@@ -464,9 +457,6 @@ function updateAppState(state) {
     // update picture properties
     $('input#widthMM').val(state.picture.width.mm).change();
     $('input#heightMM').val(state.picture.height.mm).change();
-    lockratio = state.lockratio;
-    if(lockratio) {$('img#lockratio').attr('src', 'pix/link-red.png')}
-    else {$('img#lockratio').attr('src', 'pix/link.png')}
 
     // update frame formats
     frameFormats = new Array();
@@ -566,7 +556,6 @@ function saveState() {
         'frameFormats': dataframeformats,
         'frameID': frameID,
         'frames': dataframes,
-        'lockratio': lockratio
     }
     
     // build text file and offer to download

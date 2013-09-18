@@ -72,8 +72,8 @@ function Picture(img_src, width_mm, height_mm) {
     this.setInitialPosition =  function() {
         this.updatePXdim();
         // Initally centered
-        this.x = (screen.availWidth-this.width.px)/2;
-        this.y = (screen.availHeight-this.height.px)/2;
+        this.x = ( document.width - this.width.px ) / 2;
+        this.y = ( document.height - this.height.px ) / 2;
     }
     
     this.setPrintWidth = function(widthMM) {

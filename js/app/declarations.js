@@ -1,12 +1,3 @@
-/*var scale = {
-    'mm2px': 0, // in px per mm
-    'px2mm': 0, // in mm per px
-    
-    'screen': {
-        'res': {'width': 0, 'height':0}, // in px
-        'diagonal': 0 // in inches 
-    },   
-};*/
 
 var dpmm;
 
@@ -18,7 +9,6 @@ var oldZoomSliderValue = 20;
 var zoomLVLs = new Array();
 
 var picture = new Picture();
-var lockratio = true;
 
 var frameID = 0;
 var frames = new Array();
