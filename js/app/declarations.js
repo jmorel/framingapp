@@ -1,4 +1,4 @@
-var scale = {
+/*var scale = {
     'mm2px': 0, // in px per mm
     'px2mm': 0, // in mm per px
     
@@ -6,7 +6,9 @@ var scale = {
         'res': {'width': 0, 'height':0}, // in px
         'diagonal': 0 // in inches 
     },   
-};
+};*/
+
+var dpmm;
 
 var canvas = null;
 var context = null;

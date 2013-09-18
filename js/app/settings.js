@@ -298,12 +298,6 @@ function setupSettingsPanel() {
     $(document).on('change', 'div#allFrameFormats input, div#allFrameFormats select', 
         function() {updateFrameFormat($(this).attr('ffID'));});
 
-    // default values
-	$('input#screenwidth').val(screen.width);
-	$('input#screenheight').val(screen.height);
-	scale.screen.res.width = screen.width;
-	scale.screen.res.height = screen.height;
-
     // Changes in print size
     $('input#widthMM').change(function() {
         picture.setPrintWidth($(this).val());
@@ -329,19 +323,6 @@ function setupSettingsPanel() {
             $(this).attr('src', 'pix/link-red.png');
             lockratio = true;
         }
-    });
-    
-    // Changes in screen resolution
-    $('input#screenwidth').change(function() {
-        scale.screen.res.width = $(this).val();
-    });
-    $('input#screenheight').change(function() {
-        scale.screen.res.height = $(this).val();        
-    });
-    
-    // Changes in screen diagonal
-    $('input#screendiagonal').change(function() {
-        scale.screen.diagonal = $(this).val();        
     });
 
     // add a default frame format
@@ -370,12 +351,6 @@ function setupSettingsPanel() {
         if(!picture.img.src) {alert('You have to select a picture.'); return;}
         // do we have a size in mm ?
         else if(!(picture.width.mm && picture.height.mm)) { alert('You need to input the print size for your picture.'); return;}
-        // do we have a screen resolution ?
-        else if(!(scale.screen.res.width && scale.screen.res.height)) {
-        alert(scale.screen.res.width+'x'+scale.screen.res.height)
-        alert('You need to input your screen resolution.'); return;}
-        // do we have a screen diagonal ?
-        else if(!scale.screen.diagonal) {alert('You need to input your screen diagonal.'); return;}
         
         // move the whole settings section out of the screen
         // refresh the screen

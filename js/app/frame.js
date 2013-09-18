@@ -3,24 +3,24 @@ function Frame(id, format) {
     // METHODS
     
     this.updatePXpos = function() {
-        this.x.px = this.x.mm * scale.mm2px * zoomLVLs[zoomSlider.value];
-        this.y.px = this.y.mm * scale.mm2px * zoomLVLs[zoomSlider.value];
+        this.x.px = this.x.mm * zoomLVLs[zoomSlider.value];
+        this.y.px = this.y.mm * zoomLVLs[zoomSlider.value];
     }
     
     this.updateMMpos = function() {
-        this.x.mm = this.x.px * scale.px2mm / zoomLVLs[zoomSlider.value];
-        this.y.mm = this.y.px * scale.px2mm / zoomLVLs[zoomSlider.value];
+        this.x.mm = this.x.px / zoomLVLs[zoomSlider.value];
+        this.y.mm = this.y.px / zoomLVLs[zoomSlider.value];
     }
     
     this.updatePXdim = function() {
         // sheet size
-        this.width.px = this.width.mm * scale.mm2px * zoomLVLs[zoomSlider.value];
-        this.height.px = this.height.mm * scale.mm2px * zoomLVLs[zoomSlider.value];
+        this.width.px = this.width.mm * zoomLVLs[zoomSlider.value];
+        this.height.px = this.height.mm * zoomLVLs[zoomSlider.value];
         // margins
-        this.margin.top.px = this.margin.top.mm * scale.mm2px * zoomLVLs[zoomSlider.value];
-        this.margin.bottom.px = this.margin.bottom.mm * scale.mm2px * zoomLVLs[zoomSlider.value];
-        this.margin.left.px = this.margin.left.mm * scale.mm2px * zoomLVLs[zoomSlider.value];
-        this.margin.right.px = this.margin.right.mm * scale.mm2px * zoomLVLs[zoomSlider.value];
+        this.margin.top.px = this.margin.top.mm * zoomLVLs[zoomSlider.value];
+        this.margin.bottom.px = this.margin.bottom.mm * zoomLVLs[zoomSlider.value];
+        this.margin.left.px = this.margin.left.mm * zoomLVLs[zoomSlider.value];
+        this.margin.right.px = this.margin.right.mm * zoomLVLs[zoomSlider.value];
     }
 
     this.pan = function(dx, dy) {

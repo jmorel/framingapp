@@ -21,10 +21,10 @@ function Picture(img_src, width_mm, height_mm) {
         // x, y: coordinates (within the picture) of the area to redraw
         // dx, dy: size of the area to redraw
         source = {
-            'x': x * scale.px2mm / zoomLVLs[zoomSlider.value] * (this.img.width / this.width.mm),
-            'y': y * scale.px2mm / zoomLVLs[zoomSlider.value] * (this.img.height / this.height.mm),
-            'dx': dx * scale.px2mm / zoomLVLs[zoomSlider.value] * (this.img.width / this.width.mm),
-            'dy': dy * scale.px2mm / zoomLVLs[zoomSlider.value] * (this.img.height / this.height.mm)
+            'x': x / zoomLVLs[zoomSlider.value] * dpmm,
+            'y': y / zoomLVLs[zoomSlider.value] * dpmm,
+            'dx': dx / zoomLVLs[zoomSlider.value] * dpmm,
+            'dy': dy / zoomLVLs[zoomSlider.value] * dpmm
         };
         dest = {
             'x': this.x + x, 
@@ -72,8 +72,8 @@ function Picture(img_src, width_mm, height_mm) {
     this.setInitialPosition =  function() {
         this.updatePXdim();
         // Initally centered
-        this.x = (scale.screen.res.width-this.width.px)/2;
-        this.y = (scale.screen.res.height-this.height.px)/2;
+        this.x = (screen.availWidth-this.width.px)/2;
+        this.y = (screen.availHeight-this.height.px)/2;
     }
     
     this.setPrintWidth = function(widthMM) {
@@ -84,8 +84,8 @@ function Picture(img_src, width_mm, height_mm) {
     }
     
     this.updatePXdim = function() {
-        this.width.px = this.width.mm * scale.mm2px * zoomLVLs[zoomSlider.value];
-        this.height.px = this.height.mm * scale.mm2px * zoomLVLs[zoomSlider.value];
+        this.width.px = this.width.mm * zoomLVLs[zoomSlider.value];
+        this.height.px = this.height.mm * zoomLVLs[zoomSlider.value];
     }
     
 };
