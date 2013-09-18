@@ -1,12 +1,12 @@
 /**
- * Define maximum and minimum values for zoom and populates the zoomLVL scale accordingly.
+ * Define maximum and minimum values for zoom and set up the zoom accordingly.
  * 
  * Zooming works as follow: 
  * 1. The displayed width of the picture (in px) is picture.width.px
  * 2. We use the print resolution (dpmm) even for display purposes,
  *    ie. 100% zoom level means picture.width.px = picture.width.mm * dpmm
  * 3. picture.width.px = picture.width.mm * zoomLVL 
- *    where zoomLVL = zoomLVLs[zoomSlider.value]
+ *    where zoomLVL = zoom.valueAsNumber
  * 
  * The max and min zoom values are such as:
  * * When fully zoomed out, the picture fills 70% of the screen width/height
@@ -29,13 +29,17 @@ function defineZoomMaxMin() {
     // picture.width.px = 10 * ( picture.width.mm * dpmm)
     zoomMax = 10 * dpmm;
 
-    // populate the zoomLVLs array for easy correspondance
-    var stepNb = parseInt(zoomSlider.max) + 1,
+    // setup zoom
+    var stepNb = parseInt(zoom.max) + 1,
         step = (zoomMax - zoomMin) / stepNb;
-    for ( var i = 0; i < stepNb; i++ ) {
-        zoomLVLs[i] = zoomMin + i * step;
-    }
+        
+    zoom.min = zoomMin;
+    zoom.max = zoomMax;
+    zoom.step = step;
+    zoom.value = zoomMin;
+    zoom.dataset.previousValue = zoomMin;
 }
+
 /**
  * Compute image print resolution based on user specifications
  */

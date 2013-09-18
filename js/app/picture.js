@@ -21,10 +21,10 @@ function Picture(img_src, width_mm, height_mm) {
         // x, y: coordinates (within the picture) of the area to redraw
         // dx, dy: size of the area to redraw
         source = {
-            'x': x / zoomLVLs[zoomSlider.value] * dpmm,
-            'y': y / zoomLVLs[zoomSlider.value] * dpmm,
-            'dx': dx / zoomLVLs[zoomSlider.value] * dpmm,
-            'dy': dy / zoomLVLs[zoomSlider.value] * dpmm
+            'x': x / zoom.valueAsNumber * dpmm,
+            'y': y / zoom.valueAsNumber * dpmm,
+            'dx': dx / zoom.valueAsNumber * dpmm,
+            'dy': dy / zoom.valueAsNumber * dpmm
         };
         dest = {
             'x': this.x + x, 
@@ -77,15 +77,15 @@ function Picture(img_src, width_mm, height_mm) {
     }
     
     this.setPrintWidth = function(widthMM) {
-        this.width.mm = widthMM;
+        this.width.mm = parseFloat( widthMM );
     }
     this.setPrintHeight = function(heightMM) {
-        this.height.mm = heightMM;
+        this.height.mm = parseFloat( heightMM );
     }
     
     this.updatePXdim = function() {
-        this.width.px = this.width.mm * zoomLVLs[zoomSlider.value];
-        this.height.px = this.height.mm * zoomLVLs[zoomSlider.value];
+        this.width.px = this.width.mm * zoom.valueAsNumber;
+        this.height.px = this.height.mm * zoom.valueAsNumber;
     }
     
 };

@@ -4,9 +4,7 @@ var dpmm;
 var canvas = null;
 var context = null;
 
-var zoomSlider = null;
-var oldZoomSliderValue = 20;
-var zoomLVLs = new Array();
+var zoom = null;
 
 var picture = new Picture();
 
@@ -130,13 +128,14 @@ function setupActions() {
     // select
     canvas.onclick = doSelect;
 	
-	// zoom
-    zoomSlider = $('input#zoom_lvl')[0];
-    oldZoomSliderValue = zoomSlider.value;
-    zoomSlider.onchange = zoomInOut;
-    // attach mouse wheel to scroll level
+	// Zoom
+    zoom = $('input#zoom')[0];
+    zoom.onchange = zoomInOut;
+    // Attach mouse wheel to scroll level
     $('canvas#can').mousewheel(function(event, delta){
-        zoomSlider.value = zoomSlider.value*1 + delta;
+        // Propagate value change
+        zoom.valueAsNumber = zoom.valueAsNumber + delta;
+        // Perform zoom around cursor's position
         zoomInOut(event, {'x': event.pageX, 'y':event.pageY});
     });
     

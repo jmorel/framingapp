@@ -80,7 +80,7 @@ canvas#can {
     z-index: 1;
 }
 
-input#zoom_lvl {
+input#zoom {
     -webkit-appearance:none;
     width: 100px;
     /*margin-left: -21px;*/
@@ -89,7 +89,7 @@ input#zoom_lvl {
     background: url('../pix/bgrange.png');
     background-position: center;
 }
-input#zoom_lvl::-webkit-slider-thumb {
+input#zoom::-webkit-slider-thumb {
     -webkit-appearance: none;
     width: 4px;
     height: 22px;

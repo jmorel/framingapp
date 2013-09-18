@@ -181,11 +181,23 @@ function toggleSeeThrough() {
     }
 }
 
+/**
+ * Zoom in or out around the cursor's position (or the document's center)
+ * 
+ * Perform an homothetic transformation of ratio h = current zoom value / previous zoom value
+ */
 function zoomInOut(evt, center) {
+    // Make sure the center is defined
     center = center || {'x': document.width/2, 'y':document.height/2};
-    var h = zoomLVLs[zoomSlider.value] / zoomLVLs[oldZoomSliderValue];
-    oldZoomSliderValue = zoomSlider.value;
-    picture.x = h*(picture.x-center.x) + center.x;
-    picture.y = h*(picture.y-center.y) + center.y;
+    // Define ratio
+    var h = zoom.valueAsNumber / parseFloat( zoom.dataset.previousValue );
+    // Save current zoom value as previous value
+    zoom.dataset.previousValue = zoom.valueAsNumber;
+    // perform homothetic transformation on the picture's position
+    picture.x = h * ( picture.x - center.x ) + center.x;
+    picture.y = h * ( picture.y - center.y ) + center.y;
+    // Display changes
+    // The homothetic transformation for size will occure during this refresh
+    // since it will use the new zoom value
     refresh(); 
 }
