@@ -30,7 +30,7 @@ function defineZoomMaxMin() {
     zoomMax = 10 * dpmm;
 
     // setup zoom
-    var stepNb = parseInt(zoom.max) + 1,
+    var stepNb = parseInt( zoom.dataset.stepNumber ) + 1,
         step = (zoomMax - zoomMin) / stepNb;
         
     zoom.min = zoomMin;

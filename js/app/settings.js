@@ -301,7 +301,7 @@ function setupSettingsPanel() {
     // Changes in print size
     $('input#widthMM').change(function() {
         picture.setPrintWidth( $(this).val() );
-        if ( picture.width.px != 0 && picture.height.px != 0 ) {
+        if ( picture.img.width && picture.img.height ) {
             var ratio = $('input#widthMM').val() / picture.width.px;
             $('input#heightMM').val(Math.round(picture.height.px * ratio ));
             $('i#printres').html('i.e. <span>' + Math.round(25.4 * picture.width.px / picture.width.mm).toString() + '</span> dpi');
@@ -310,7 +310,7 @@ function setupSettingsPanel() {
     });
     $('input#heightMM').change(function() {
         picture.setPrintHeight($(this).val());
-        if ( picture.width.px != 0 && picture.height.px != 0 ) {
+        if ( picture.img.width && picture.img.height ) {
             var ratio = $('input#heightMM').val() / picture.height.px;
             $('input#widthMM').val( Math.round( picture.width.px * ratio ) );
             $('i#printres').html('i.e. <span">' + Math.round(25.4 * picture.height.px / picture.height.mm).toString() + '</span> dpi');
