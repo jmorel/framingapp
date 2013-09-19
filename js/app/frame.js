@@ -63,10 +63,87 @@ function Frame(id, format) {
         this.updatePXdim();
         this.updatePXpos();
         
-        context.fillStyle = '#FFF';
-        if(this.highlight || this.selected) { context.fillStyle = '#991523'; }
-        // DRAW FRAME
+        var white = '#FFF',
+            transparentWhite = "rgba(255, 255, 255, 0.3)",
+            red = '#991523',
+            transparentRed = "rgba(153, 21, 35, 0.3)";
+
+
+        /*context.fillStyle = '#FFF';
+        if(this.highlight || this.selected) { context.fillStyle = '#991523'; }*/
+
+        // For display of 0-value borders
+        // we use a standard value of 5mm
+        var noMargin = 5 * zoom.valueAsNumber;
+
+        function useStyle( self, noMargin, defaultStyle, noBorderStyle) {
+
+            var margin, 
+                style;
+
+            // top border
+            margin = self.margin.top.px;
+            style = defaultStyle;
+            if ( !self.margin.top.mm ) { 
+                margin = noMargin; 
+                style = noBorderStyle;
+            }
+            context.fillStyle = style;
+            context.fillRect(
+                picture.x + self.x.px,
+                picture.y + self.y.px,
+                self.width.px,
+                margin);
+            // bottom border
+            margin = self.margin.bottom.px;
+            style = defaultStyle;
+            if ( !self.margin.bottom.mm ) { 
+                margin = noMargin; 
+                style = noBorderStyle;
+            }
+            context.fillStyle = style;
+            context.fillRect(
+                picture.x + self.x.px,
+                picture.y + self.y.px + self.height.px - margin,
+                self.width.px,
+                margin);
+            // left border
+            margin = self.margin.left.px;
+            style = defaultStyle;
+            if ( !self.margin.left.mm ) { 
+                margin = noMargin; 
+                style = noBorderStyle;
+            }
+            context.fillStyle = style;
+            context.fillRect(
+                picture.x + self.x.px,
+                picture.y + self.y.px,
+                margin,
+                self.height.px);
+            // right border
+            margin = self.margin.right.px;
+            style = defaultStyle;
+            if ( !self.margin.right.mm ) { 
+                margin = noMargin; 
+                style = noBorderStyle;
+            }
+            context.fillStyle = style;
+            context.fillRect(
+                picture.x + self.x.px + self.width.px - margin,
+                picture.y + self.y.px,
+                margin,
+                self.height.px);
+        }
+
+
+        if ( this.highlight || this.selected ) { 
+            useStyle( this, noMargin, red, transparentRed );
+        } else {
+            useStyle( this, noMargin, white, transparentWhite );
+        }
+/*        // DRAW FRAME
         // top border
+        //if ( !margin.top.mm ) { margin = noMargin }
         context.fillRect(
             picture.x + this.x.px,
             picture.y + this.y.px,
@@ -89,7 +166,7 @@ function Frame(id, format) {
             picture.x + this.x.px + this.width.px - this.margin.right.px,
             picture.y + this.y.px,
             this.margin.right.px,
-            this.height.px);
+            this.height.px);*/
         
         if(this.seethrough) {
             // draw the basic image to the center of the frame

@@ -53,7 +53,16 @@ function newFrameFormat() {
 	var marginleft = parseInt(document.getElementById('newFF_marginleft').value);
 	var marginright = parseInt(document.getElementById('newFF_marginright').value);
 	// check values
-	if( !(name && sheetsize && margintop && marginbottom && marginleft && marginright)) { alert('Please input values for all 6 parameters.'); return false; }
+	if ( !name || 
+        !sheetsize || 
+        margintop == undefined || 
+        marginbottom == undefined ||
+        marginleft == undefined ||
+        marginright == undefined ) { 
+        alert('Please input values for all 6 parameters.'); 
+        return false; 
+    }
+    
 	// new FrameFormat object
 	format = new FrameFormat;
 	format.name = name;
@@ -283,8 +292,8 @@ function setupSettingsPanel() {
         }
     });
 	// Click on the "ADD" button actually creates the new frame format
-	$('div#addArrow').click(newFrameFormat);
-	$('form').submit(newFrameFormat);
+	$('div#addArrow').click( newFrameFormat);
+	$('form').submit( newFrameFormat );
 
     // Change color of the cross
     $(document)
