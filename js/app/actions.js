@@ -54,21 +54,34 @@ function deleteSelectedFrame() {
 
 function selectFrame(id) {
     f = frames[id];
-    // unselect all
-    for(var j=0; j<frames.length;j++) { frames[j].selected = false;}
+    // deselect all
+    deselectAllFrames();
     // select this one            
     f.selected = true;
 }
 
+function deselectAllFrames() {
+    for(var j=0; j<frames.length;j++) { frames[j].selected = false;}
+}
+
 function doSelect(e) {
-    for(var id=frames.length-1; id>=0; id--) {
+    var id,
+        newSelection = false;
+    // Find if a frame was under the cursor, starting from the top
+    for ( id = frames.length - 1; id >= 0; id-- ) {
         f = frames[id];
         if(f.over(e.clientX, e.clientY)) {
+            newSelection = true;
             selectFrame(id);
-            refresh();
             break;
         } 
     }
+    // If no frame was under the cursor, deselect all
+    if ( !newSelection ) {
+        deselectAllFrames();
+    }
+    // Refresh display
+    refresh();
 }
 
 function moveFrameUp() {
@@ -122,13 +135,15 @@ function moveFrameDown() {
 }
 
 function pan(e) {
+    // Update selection
+    doSelect( e );
     // pan only
     var oldMouseX = e.clientX;
     var oldMouseY = e.clientY;
     canvas.onmousemove = function(e) {
         // for the movement
-        var mouseX = e.clientX
-        var mouseY = e.clientY
+        var mouseX = e.clientX;
+        var mouseY = e.clientY;
         var dx = mouseX - oldMouseX;
         var dy = mouseY - oldMouseY;
         oldMouseX = mouseX;
